@@ -1,16 +1,15 @@
 using Godot;
-using System;
 
+// Camera should tilt and rotate with mouse movement
 public partial class CameraFollowComponent : Node3D
 {
-	// Camera should tilt and rotate with mouse movement
+	[Export] public Resource CameraData; 
+	
 	[Export] public NodePath TargetFollowObjectPath;
 	public Node3D TargetObject;
 	
 	[Export] public NodePath CameraTargetRootPath;
 	public Node3D CameraTargetRoot;
-
-	[Export] public float LerpSpeed = 0.1f;
 
 	public override void _Ready()
 	{
@@ -28,11 +27,15 @@ public partial class CameraFollowComponent : Node3D
 	{
 		if (TargetObject != null && CameraTargetRoot != null)
 		{
-			Vector3 curPos = CameraTargetRoot.GlobalTransform.Origin;
-			Vector3 targetPos = TargetObject.GlobalTransform.Origin;
-			Vector3 offset = new Vector3(0.0f, 3.0f, 10.0f);
-			curPos = curPos.Lerp(targetPos + offset,(float)delta * LerpSpeed);
-			CameraTargetRoot.Position = curPos;
+			return;
+		}
+		
+		if (CameraData is BaseCameraData baseCameraData)
+		{
+		   Vector3 curPos = CameraTargetRoot.GlobalTransform.Origin;
+		   Vector3 targetPos = TargetObject.GlobalTransform.Origin;
+		   curPos = curPos.Lerp(targetPos + baseCameraData.CameraOffset,(float)delta * baseCameraData.LerpSpeed);
+		   CameraTargetRoot.Position = curPos;
 		}
 	}
 }

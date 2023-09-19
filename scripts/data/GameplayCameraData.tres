@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://c848n00qvyrao"]
+
+[ext_resource type="Script" path="res://scripts/data/base_resources/BaseCameraData.cs" id="1_gglto"]
+
+[resource]
+script = ExtResource("1_gglto")
+LerpSpeed = 10.0
+CameraOffset = Vector3(2.08165e-12, 3, 10)

@@ -1,10 +1,10 @@
 [gd_scene load_steps=12 format=3 uid="uid://dbo8ivftadkha"]
 
 [ext_resource type="Script" path="res://scripts/components/PlayerPhysicsComponent.cs" id="1_4li7b"]
-[ext_resource type="Script" path="res://scripts/managers/PersistentSceneManager.cs" id="1_rl35y"]
 [ext_resource type="Script" path="res://scripts/components/PlayerInputComponent.cs" id="1_woueb"]
 [ext_resource type="Resource" uid="uid://cg0lpsttvtbjn" path="res://scripts/data/PlayerData.tres" id="4_lypj0"]
 [ext_resource type="Script" path="res://scripts/components/CameraFollowComponent.cs" id="4_mgyy4"]
+[ext_resource type="Resource" uid="uid://c848n00qvyrao" path="res://scripts/data/GameplayCameraData.tres" id="5_7k5fq"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_8m6dm"]
 size = Vector3(5, 0.5, 5)
@@ -35,7 +35,6 @@ glow_enabled = true
 volumetric_fog_enabled = true
 
 [node name="Scene" type="Node3D"]
-script = ExtResource("1_rl35y")
 
 [node name="FloorStaticBody" type="StaticBody3D" parent="."]
 
@@ -74,7 +73,7 @@ fov = 46.0
 script = ExtResource("4_mgyy4")
 TargetFollowObjectPath = NodePath("../../PlayerRigidBody")
 CameraTargetRootPath = NodePath("..")
-LerpSpeed = 5.0
+CameraData = ExtResource("5_7k5fq")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_4vcl7")
