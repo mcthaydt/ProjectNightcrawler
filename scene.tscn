@@ -1,0 +1,85 @@
+[gd_scene load_steps=12 format=3 uid="uid://dbo8ivftadkha"]
+
+[ext_resource type="Script" path="res://scripts/components/PlayerPhysicsComponent.cs" id="1_4li7b"]
+[ext_resource type="Script" path="res://scripts/managers/PersistentSceneManager.cs" id="1_rl35y"]
+[ext_resource type="Script" path="res://scripts/components/PlayerInputComponent.cs" id="1_woueb"]
+[ext_resource type="Resource" uid="uid://cg0lpsttvtbjn" path="res://scripts/data/PlayerData.tres" id="4_lypj0"]
+[ext_resource type="Script" path="res://scripts/components/CameraFollowComponent.cs" id="4_mgyy4"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8m6dm"]
+size = Vector3(5, 0.5, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m2tox"]
+size = Vector3(5.0074, 0.548257, 5.03496)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_214gn"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_oafwj"]
+turbidity = 67.47
+sun_disk_scale = 199.62
+energy_multiplier = 6.89
+
+[sub_resource type="Sky" id="Sky_jwo1k"]
+sky_material = SubResource("PhysicalSkyMaterial_oafwj")
+
+[sub_resource type="Environment" id="Environment_4vcl7"]
+background_mode = 2
+sky = SubResource("Sky_jwo1k")
+ambient_light_source = 3
+tonemap_mode = 3
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+glow_enabled = true
+volumetric_fog_enabled = true
+
+[node name="Scene" type="Node3D"]
+script = ExtResource("1_rl35y")
+
+[node name="FloorStaticBody" type="StaticBody3D" parent="."]
+
+[node name="FloorMesh" type="CSGMesh3D" parent="FloorStaticBody"]
+mesh = SubResource("BoxMesh_8m6dm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FloorStaticBody"]
+shape = SubResource("BoxShape3D_m2tox")
+
+[node name="PlayerRigidBody" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.76886, 0)
+mass = 80.0
+linear_damp = 1.0
+constant_force = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+script = ExtResource("1_4li7b")
+PlayerData = ExtResource("4_lypj0")
+
+[node name="PlayerInputComponent" type="Node3D" parent="PlayerRigidBody"]
+script = ExtResource("1_woueb")
+PlayerData = ExtResource("4_lypj0")
+
+[node name="PlayerMesh" type="CSGSphere3D" parent="PlayerRigidBody"]
+radial_segments = 36
+
+[node name="PlayerCollisionShape" type="CollisionShape3D" parent="PlayerRigidBody"]
+shape = SubResource("SphereShape3D_214gn")
+
+[node name="CameraLookTarget" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 3, 10)
+
+[node name="Camera3D" type="Camera3D" parent="CameraLookTarget"]
+transform = Transform3D(1, -4.68079e-16, 3.27752e-16, 3.27752e-16, 0.939693, 0.34202, -4.68079e-16, -0.34202, 0.939693, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+fov = 46.0
+
+[node name="CameraFollowComponent" type="Node3D" parent="CameraLookTarget"]
+script = ExtResource("4_mgyy4")
+TargetFollowObjectPath = NodePath("../../PlayerRigidBody")
+CameraTargetRootPath = NodePath("..")
+LerpSpeed = 5.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_4vcl7")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.918099, 0.276994, -0.283493, -0.100935, 0.528279, 0.84305, 0.383283, 0.802618, -0.457054, 0, 5.50987, 8.21841)
+light_volumetric_fog_energy = 1.547
+shadow_enabled = true

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cg0lpsttvtbjn"]
+
+[ext_resource type="Script" path="res://scripts/data/base_resources/BaseCharacterData.cs" id="1_kdnwk"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_kdnwk")
+MovementSpeed = 40.0
+Velocity = Vector3(0, 0, 0)
+JumpPower = 300.0
+CurrentPrimaryCharacterState = 0
