@@ -14,9 +14,13 @@ public partial class PlayerPhysicsComponent : RigidBody3D
 		{
 			_playerVelocity = baseCharacterData.Velocity;
 			_playerMovementSpeed = baseCharacterData.MovementSpeed;
-			
-			AngularVelocity = _playerVelocity * _playerMovementSpeed;
-			baseCharacterData.Velocity = _playerVelocity;
 		}
+		else
+		{
+			GD.Print("Missing Player Data!");
+			return;
+		}
+		AngularVelocity = _playerVelocity * _playerMovementSpeed;
+		baseCharacterData.Velocity = _playerVelocity;
 	}
 }

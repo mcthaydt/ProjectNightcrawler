@@ -1,10 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://dbo8ivftadkha"]
+[gd_scene load_steps=14 format=3 uid="uid://dbo8ivftadkha"]
 
 [ext_resource type="Script" path="res://scripts/components/PlayerPhysicsComponent.cs" id="1_4li7b"]
 [ext_resource type="Script" path="res://scripts/components/PlayerInputComponent.cs" id="1_woueb"]
 [ext_resource type="Resource" uid="uid://cg0lpsttvtbjn" path="res://scripts/data/PlayerData.tres" id="4_lypj0"]
 [ext_resource type="Script" path="res://scripts/components/CameraFollowComponent.cs" id="4_mgyy4"]
 [ext_resource type="Resource" uid="uid://c848n00qvyrao" path="res://scripts/data/GameplayCameraData.tres" id="5_7k5fq"]
+[ext_resource type="Script" path="res://scripts/components/CameraRotationComponent.cs" id="6_ols4l"]
+[ext_resource type="Script" path="res://scripts/components/CameraTiltComponent.cs" id="7_jdvh8"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_8m6dm"]
 size = Vector3(5, 0.5, 5)
@@ -65,20 +67,40 @@ shape = SubResource("SphereShape3D_214gn")
 [node name="CameraLookTarget" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 3, 10)
 
-[node name="Camera3D" type="Camera3D" parent="CameraLookTarget"]
-transform = Transform3D(1, -4.68079e-16, 3.27752e-16, 3.27752e-16, 0.939693, 0.34202, -4.68079e-16, -0.34202, 0.939693, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+[node name="CameraHorizontalTiltGimbal" type="Node3D" parent="CameraLookTarget"]
+transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, -3.48787e-16, -3.48787e-16, 3.48787e-16, 1, 0, 0, 0)
+
+[node name="CameraVerticalTiltGimbal" type="Node3D" parent="CameraLookTarget/CameraHorizontalTiltGimbal"]
+
+[node name="CameraHorizontalRotationGimbal" type="Node3D" parent="CameraLookTarget/CameraHorizontalTiltGimbal/CameraVerticalTiltGimbal"]
+transform = Transform3D(1, -1.21652e-31, 0, -1.21652e-31, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="CameraVerticalRotationGimbal" type="Node3D" parent="CameraLookTarget/CameraHorizontalTiltGimbal/CameraVerticalTiltGimbal/CameraHorizontalRotationGimbal"]
+
+[node name="GameplayCamera" type="Camera3D" parent="CameraLookTarget/CameraHorizontalTiltGimbal/CameraVerticalTiltGimbal/CameraHorizontalRotationGimbal/CameraVerticalRotationGimbal"]
+transform = Transform3D(1, -4.68079e-16, 3.27753e-16, 3.27752e-16, 0.939693, 0.34202, -4.68079e-16, -0.34202, 0.939693, 2.08165e-12, 0, 0)
 fov = 46.0
 
 [node name="CameraFollowComponent" type="Node3D" parent="CameraLookTarget"]
 script = ExtResource("4_mgyy4")
+CameraData = ExtResource("5_7k5fq")
 TargetFollowObjectPath = NodePath("../../PlayerRigidBody")
 CameraTargetRootPath = NodePath("..")
-CameraData = ExtResource("5_7k5fq")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_4vcl7")
+[node name="CameraRotationComponent" type="Node3D" parent="CameraLookTarget"]
+script = ExtResource("6_ols4l")
+
+[node name="CameraTiltComponent" type="Node3D" parent="CameraLookTarget"]
+script = ExtResource("7_jdvh8")
+CameraData = ExtResource("5_7k5fq")
+CameraHorizontalTiltGimbalNodePath = NodePath("../CameraHorizontalTiltGimbal")
+CameraVerticalTiltGimbalNodePath = NodePath("../CameraHorizontalTiltGimbal/CameraVerticalTiltGimbal")
+MaxCameraTiltDegree = 14.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.918099, 0.276994, -0.283493, -0.100935, 0.528279, 0.84305, 0.383283, 0.802618, -0.457054, 0, 5.50987, 8.21841)
 light_volumetric_fog_energy = 1.547
 shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_4vcl7")

@@ -4,5 +4,6 @@
 
 [resource]
 script = ExtResource("1_gglto")
-LerpSpeed = 10.0
+PositionLerpSpeed = 10.0
+TiltLerpSpeed = 5.0
 CameraOffset = Vector3(2.08165e-12, 3, 10)
