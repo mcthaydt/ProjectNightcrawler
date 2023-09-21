@@ -218,9 +218,11 @@ script = ExtResource("12_6xvgm")
 [node name="CameraTiltComponent" type="Node3D" parent="ViewportContainer/GameplayViewport/GameplayScene/CameraLookTarget"]
 script = ExtResource("13_mmcye")
 CameraData = ExtResource("8_cx887")
+PlayerData = ExtResource("5_ugqot")
 CameraHorizontalTiltGimbalNodePath = NodePath("../CameraHorizontalTiltGimbal")
 CameraVerticalTiltGimbalNodePath = NodePath("../CameraHorizontalTiltGimbal/CameraVerticalTiltGimbal")
 MaxCameraTiltDegree = 14.0
+TimeBeforeTiltStarts = 0.07
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="ViewportContainer/GameplayViewport/GameplayScene"]
 transform = Transform3D(-0.918099, 0.276994, -0.283493, -0.100935, 0.528279, 0.84305, 0.383283, 0.802618, -0.457054, 0, 5.50987, 8.21841)

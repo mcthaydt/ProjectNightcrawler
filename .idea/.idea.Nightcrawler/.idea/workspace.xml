@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="fdd73071-43e9-49bd-ab22-ad464aec7029" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Nightcrawler/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Nightcrawler/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project.godot" beforeDir="false" afterPath="$PROJECT_DIR$/project.godot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scene.tscn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nightcrawler.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/nightcrawler.tscn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/components/camera/CameraTiltComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/components/camera/CameraTiltComponent.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,6 +101,8 @@
       <workItem from="1695086342969" duration="328000" />
       <workItem from="1695167149496" duration="4545000" />
       <workItem from="1695187733297" duration="1000" />
+      <workItem from="1695187835775" duration="86000" />
+      <workItem from="1695262524175" duration="1617000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -126,7 +128,15 @@
       <option name="project" value="LOCAL" />
       <updated>1695171689906</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Made Prettier">
+      <option name="closed" value="true" />
+      <created>1695187854904</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1695187854904</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -139,6 +149,7 @@
     <MESSAGE value="Initial Commit" />
     <MESSAGE value="Made Camera use a Resource data format" />
     <MESSAGE value="Added Camera Tilts" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Camera Tilts" />
+    <MESSAGE value="Made Prettier" />
+    <option name="LAST_COMMIT_MESSAGE" value="Made Prettier" />
   </component>
 </project>

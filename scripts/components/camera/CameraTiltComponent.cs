@@ -3,6 +3,7 @@ using Godot;
 public partial class CameraTiltComponent : Node
 {
 	[Export] public Resource CameraData; 
+	[Export] public Resource PlayerData; 
 	
 	[Export] public NodePath CameraHorizontalTiltGimbalNodePath;
 	private Node3D _cameraHorizontalTiltGimbal;
@@ -11,8 +12,13 @@ public partial class CameraTiltComponent : Node
 	private Node3D _cameraVerticalTiltGimbal;
 
 	[Export] public float MaxCameraTiltDegree = 20.0f;
+	[Export] public float TimeBeforeTiltStarts = .05f;
 	
 	private float _cameraTiltLerpSpeed = 0.0f;
+	
+	private double _keyPressTime = 0.0f;
+	private double _keyPressCooldownTime = 0.0f;
+	
 	public override void _Ready()
 	{
 		if (CameraHorizontalTiltGimbalNodePath != null)
@@ -45,32 +51,60 @@ public partial class CameraTiltComponent : Node
 			return;
 		}
 		
-		if (Input.IsActionPressed("move_right"))
+		// if (PlayerData is BaseCharacterData baseCharacterData)
+		// {
+		// 	_playerMovementVelocity = baseCharacterData.Velocity;
+		// }
+		// else
+		// {
+		// 	GD.Print("Missing Player Data!");
+		// 	return;
+		// }
+
+		if (Input.IsActionPressed("move_down") || Input.IsActionPressed("move_left") || Input.IsActionPressed("move_right")
+		    || Input.IsActionPressed("move_up"))
 		{
-			currentTiltAmountHorizontal = MaxCameraTiltDegree;
-		}
-		else if (Input.IsActionPressed("move_left"))
-		{
-			currentTiltAmountHorizontal = -MaxCameraTiltDegree;
-		}
-		else
-		{
-			currentTiltAmountHorizontal = 0.0f;
-		}
-		 
-		if (Input.IsActionPressed("move_up"))
-		{
-			currentTiltAmountVertical = MaxCameraTiltDegree / 2.0f;
-		}
-		else if (Input.IsActionPressed("move_down"))
-		{
-			currentTiltAmountVertical = -MaxCameraTiltDegree / 2.0f;
+			_keyPressTime += delta;
 		}
 		else
 		{
-			currentTiltAmountVertical = 0.0f;
+			_keyPressCooldownTime += delta;
+			if (_keyPressCooldownTime > TimeBeforeTiltStarts / 1.3f)
+			{
+				 _keyPressTime = 0.0f;
+				 _keyPressCooldownTime = 0.0f;
+			}
 		}
-		 
+
+		if (_keyPressTime > TimeBeforeTiltStarts)
+		{
+			if (Input.IsActionPressed("move_right"))
+			{
+				currentTiltAmountHorizontal = MaxCameraTiltDegree;
+			}
+			else if (Input.IsActionPressed("move_left"))
+			{
+				currentTiltAmountHorizontal = -MaxCameraTiltDegree;
+			}
+			else
+			{
+				currentTiltAmountHorizontal = 0.0f;
+			}
+		  
+			if (Input.IsActionPressed("move_up"))
+			{
+				currentTiltAmountVertical = MaxCameraTiltDegree / 2.0f;
+			}
+			else if (Input.IsActionPressed("move_down"))
+			{
+				currentTiltAmountVertical = -MaxCameraTiltDegree / 2.0f;
+			}
+			else
+			{
+				currentTiltAmountVertical = 0.0f;
+			}
+		}
+	
 		currentTiltAmountHorizontalDeg2Rad = Mathf.DegToRad(currentTiltAmountHorizontal);
 		currentTiltAmountVerticalDeg2Rad = Mathf.DegToRad(currentTiltAmountVertical);
 
