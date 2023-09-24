@@ -3,7 +3,6 @@ using Godot;
 public partial class CameraTiltComponent : Node
 {
 	[Export] public Resource CameraData; 
-	[Export] public Resource PlayerData; 
 	
 	[Export] public NodePath CameraHorizontalTiltGimbalNodePath;
 	private Node3D _cameraHorizontalTiltGimbal;
@@ -50,16 +49,6 @@ public partial class CameraTiltComponent : Node
 			GD.Print("Missing Camera Data!");
 			return;
 		}
-		
-		// if (PlayerData is BaseCharacterData baseCharacterData)
-		// {
-		// 	_playerMovementVelocity = baseCharacterData.Velocity;
-		// }
-		// else
-		// {
-		// 	GD.Print("Missing Player Data!");
-		// 	return;
-		// }
 
 		if (Input.IsActionPressed("move_down") || Input.IsActionPressed("move_left") || Input.IsActionPressed("move_right")
 		    || Input.IsActionPressed("move_up"))

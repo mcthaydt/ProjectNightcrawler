@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dbo8ivftadkha"]
+[gd_scene load_steps=29 format=3 uid="uid://dbo8ivftadkha"]
 
 [ext_resource type="Shader" path="res://scripts/shaders/Vignette.gdshader" id="1_mfje7"]
 [ext_resource type="Texture2D" uid="uid://b8qusqf0c7jri" path="res://scripts/assets/textures/4_3_aspect_ratio_bars_pillarbox_by_logosscreenbugsmore_dehryca-pre.png" id="1_rvo6u"]
@@ -7,10 +7,11 @@
 [ext_resource type="Shader" path="res://scripts/shaders/3DPixelArtOutline.gdshader" id="3_l5jct"]
 [ext_resource type="Script" path="res://scripts/components/PlayerPhysicsComponent.cs" id="4_s8pou"]
 [ext_resource type="Resource" uid="uid://cg0lpsttvtbjn" path="res://scripts/data/PlayerData.tres" id="5_ugqot"]
-[ext_resource type="Script" path="res://scripts/components/PlayerInputComponent.cs" id="6_48sdo"]
 [ext_resource type="Texture2D" uid="uid://d2dilfqrgy6en" path="res://scripts/assets/textures/SBS - Tiny Texture Pack 2 - 128x128/128x128/Plaster/Plaster_02-128x128.png" id="7_kmds5"]
 [ext_resource type="Resource" uid="uid://c848n00qvyrao" path="res://scripts/data/GameplayCameraData.tres" id="8_cx887"]
+[ext_resource type="Script" path="res://scripts/util/StateMachine.cs" id="10_30v1k"]
 [ext_resource type="Script" path="res://scripts/components/camera/CameraFollowComponent.cs" id="10_i3a8a"]
+[ext_resource type="Script" path="res://scripts/states/PlayerGroundedState.cs" id="10_xgg2v"]
 [ext_resource type="Shader" path="res://scripts/shaders/GradientSky.gdshader" id="11_ssra5"]
 [ext_resource type="Script" path="res://scripts/components/camera/CameraRotationComponent.cs" id="12_6xvgm"]
 [ext_resource type="Script" path="res://scripts/components/camera/CameraTiltComponent.cs" id="13_mmcye"]
@@ -177,16 +178,21 @@ constant_force = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
 script = ExtResource("4_s8pou")
 PlayerData = ExtResource("5_ugqot")
 
-[node name="PlayerInputComponent" type="Node3D" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBody"]
-script = ExtResource("6_48sdo")
-PlayerData = ExtResource("5_ugqot")
-
 [node name="PlayerMesh" type="CSGSphere3D" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBody"]
 radial_segments = 36
 material = SubResource("ShaderMaterial_f6pxm")
 
 [node name="PlayerCollisionShape" type="CollisionShape3D" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBody"]
 shape = SubResource("SphereShape3D_214gn")
+
+[node name="PlayerStateMachine" type="Node" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBody" node_paths=PackedStringArray("InitialState", "StateCollection")]
+script = ExtResource("10_30v1k")
+InitialState = NodePath("PlayerGroundedState")
+StateCollection = [NodePath("PlayerGroundedState")]
+
+[node name="PlayerGroundedState" type="Node" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBody/PlayerStateMachine"]
+script = ExtResource("10_xgg2v")
+PlayerData = ExtResource("5_ugqot")
 
 [node name="CameraLookTarget" type="Node3D" parent="ViewportContainer/GameplayViewport/GameplayScene"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 3, 10)
@@ -218,7 +224,6 @@ script = ExtResource("12_6xvgm")
 [node name="CameraTiltComponent" type="Node3D" parent="ViewportContainer/GameplayViewport/GameplayScene/CameraLookTarget"]
 script = ExtResource("13_mmcye")
 CameraData = ExtResource("8_cx887")
-PlayerData = ExtResource("5_ugqot")
 CameraHorizontalTiltGimbalNodePath = NodePath("../CameraHorizontalTiltGimbal")
 CameraVerticalTiltGimbalNodePath = NodePath("../CameraHorizontalTiltGimbal/CameraVerticalTiltGimbal")
 MaxCameraTiltDegree = 14.0

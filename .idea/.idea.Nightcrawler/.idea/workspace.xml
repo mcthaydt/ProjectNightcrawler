@@ -5,9 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fdd73071-43e9-49bd-ab22-ad464aec7029" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/scripts/states/PlayerGroundedState.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/util/State.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/util/StateMachine.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Nightcrawler/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Nightcrawler/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nightcrawler.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/nightcrawler.tscn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/components/PlayerInputComponent.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/components/camera/CameraTiltComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/components/camera/CameraTiltComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/data/PlayerData.tres" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/data/PlayerData.tres" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/data/base_resources/BaseCharacterData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/data/base_resources/BaseCharacterData.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +22,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Users/mcthaydt/Desktop/717 Holdings Company/CrispyOwl717/Games/Nightcrawler/scripts/components/camera/CameraTiltComponent.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -102,7 +111,9 @@
       <workItem from="1695167149496" duration="4545000" />
       <workItem from="1695187733297" duration="1000" />
       <workItem from="1695187835775" duration="86000" />
-      <workItem from="1695262524175" duration="1617000" />
+      <workItem from="1695262524175" duration="2643000" />
+      <workItem from="1695506465066" duration="1475000" />
+      <workItem from="1695508155248" duration="8805000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -136,7 +147,15 @@
       <option name="project" value="LOCAL" />
       <updated>1695187854904</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="QOF improvements for tilting; you need to hold the button for a time before it actually starts the tilt">
+      <option name="closed" value="true" />
+      <created>1695264192827</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1695264192827</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -150,6 +169,7 @@
     <MESSAGE value="Made Camera use a Resource data format" />
     <MESSAGE value="Added Camera Tilts" />
     <MESSAGE value="Made Prettier" />
-    <option name="LAST_COMMIT_MESSAGE" value="Made Prettier" />
+    <MESSAGE value="QOF improvements for tilting; you need to hold the button for a time before it actually starts the tilt" />
+    <option name="LAST_COMMIT_MESSAGE" value="QOF improvements for tilting; you need to hold the button for a time before it actually starts the tilt" />
   </component>
 </project>

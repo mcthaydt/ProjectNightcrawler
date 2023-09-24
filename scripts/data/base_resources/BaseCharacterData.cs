@@ -26,7 +26,7 @@ public partial class BaseCharacterData : Resource
     [Export] public float MovementSpeed { get; set; }
     [Export] public Vector3 Velocity { get; set; }
     [Export] public float JumpPower { get; set; }
-    [Export] public PrimaryCharacterState CurrentPrimaryCharacterState { get; set; }
+    public PrimaryCharacterState CurrentPrimaryCharacterState { get; set; }
 
     public BaseCharacterData() : this(0.0f, Vector3.Zero, 0.0f, PrimaryCharacterState.Spawning) {}
 

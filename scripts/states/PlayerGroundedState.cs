@@ -1,11 +1,24 @@
 using Godot;
+using System;
 
-public partial class PlayerInputComponent : Node3D
+public partial class PlayerGroundedState : State 
 {
 	[Export] public Resource PlayerData; 
 	private Vector3 _playerVelocity = Vector3.Zero;
-	
-	public override void _Process(double delta)
+
+	public override void Enter()
+	{
+		if (PlayerData is BaseCharacterData baseCharacterData)
+		{
+			baseCharacterData.CurrentPrimaryCharacterState = BaseCharacterData.PrimaryCharacterState.Grounded;
+		}
+		else
+		{
+			GD.Print("Missing Player Data!");
+			return;
+		}
+	}
+	public override void Update(double delta)
 	{
 		if (PlayerData is BaseCharacterData baseCharacterData)
 		{
@@ -35,6 +48,8 @@ public partial class PlayerInputComponent : Node3D
 			_playerVelocity += Vector3.Left;
 		}
 		_playerVelocity = _playerVelocity.Normalized();
-		baseCharacterData.Velocity = _playerVelocity;
+		baseCharacterData.Velocity = _playerVelocity;	
 	}
+
+		// EmitSignal(SignalName.TransitionState, this, "playerspawningstate");
 }
