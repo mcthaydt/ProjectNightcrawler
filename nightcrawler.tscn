@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dbo8ivftadkha"]
+[gd_scene load_steps=30 format=3 uid="uid://dbo8ivftadkha"]
 
 [ext_resource type="Shader" path="res://scripts/shaders/Vignette.gdshader" id="1_mfje7"]
 [ext_resource type="Texture2D" uid="uid://b8qusqf0c7jri" path="res://scripts/assets/textures/4_3_aspect_ratio_bars_pillarbox_by_logosscreenbugsmore_dehryca-pre.png" id="1_rvo6u"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://scripts/util/StateMachine.cs" id="10_30v1k"]
 [ext_resource type="Script" path="res://scripts/components/camera/CameraFollowComponent.cs" id="10_i3a8a"]
 [ext_resource type="Script" path="res://scripts/states/PlayerGroundedState.cs" id="10_xgg2v"]
+[ext_resource type="Script" path="res://scripts/components/FollowParentComponent.cs" id="11_4x588"]
 [ext_resource type="Shader" path="res://scripts/shaders/GradientSky.gdshader" id="11_ssra5"]
 [ext_resource type="Script" path="res://scripts/components/camera/CameraRotationComponent.cs" id="12_6xvgm"]
 [ext_resource type="Script" path="res://scripts/components/camera/CameraTiltComponent.cs" id="13_mmcye"]
@@ -170,7 +171,7 @@ material = SubResource("ShaderMaterial_l4gi6")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ViewportContainer/GameplayViewport/GameplayScene/FloorStaticBody"]
 shape = SubResource("BoxShape3D_m2tox")
 
-[node name="PlayerRigidBody" type="RigidBody3D" parent="ViewportContainer/GameplayViewport/GameplayScene"]
+[node name="PlayerRigidBodyComponent" type="RigidBody3D" parent="ViewportContainer/GameplayViewport/GameplayScene"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.76886, 0)
 mass = 80.0
 linear_damp = 1.0
@@ -178,21 +179,32 @@ constant_force = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
 script = ExtResource("4_s8pou")
 PlayerData = ExtResource("5_ugqot")
 
-[node name="PlayerMesh" type="CSGSphere3D" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBody"]
+[node name="PlayerMesh" type="CSGSphere3D" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBodyComponent"]
 radial_segments = 36
 material = SubResource("ShaderMaterial_f6pxm")
 
-[node name="PlayerCollisionShape" type="CollisionShape3D" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBody"]
+[node name="PlayerCollisionShape" type="CollisionShape3D" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBodyComponent"]
 shape = SubResource("SphereShape3D_214gn")
 
-[node name="PlayerStateMachine" type="Node" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBody" node_paths=PackedStringArray("InitialState", "StateCollection")]
+[node name="PlayerStateMachine" type="Node" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBodyComponent" node_paths=PackedStringArray("InitialState", "StateCollection")]
 script = ExtResource("10_30v1k")
 InitialState = NodePath("PlayerGroundedState")
 StateCollection = [NodePath("PlayerGroundedState")]
 
-[node name="PlayerGroundedState" type="Node" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBody/PlayerStateMachine"]
+[node name="PlayerGroundedState" type="Node" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBodyComponent/PlayerStateMachine"]
 script = ExtResource("10_xgg2v")
 PlayerData = ExtResource("5_ugqot")
+
+[node name="PlayerInAirState" type="Node" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBodyComponent/PlayerStateMachine"]
+
+[node name="PlayerRayCast" type="RayCast3D" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBodyComponent"]
+top_level = true
+target_position = Vector3(2.08165e-12, -0.575, 2.08165e-12)
+
+[node name="FollowTopParentComponent" type="Node3D" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBodyComponent/PlayerRayCast"]
+script = ExtResource("11_4x588")
+TargetObjectPath = NodePath("../..")
+FollowObjectPath = NodePath("..")
 
 [node name="CameraLookTarget" type="Node3D" parent="ViewportContainer/GameplayViewport/GameplayScene"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 3, 10)
@@ -215,7 +227,7 @@ fov = 46.0
 [node name="CameraFollowComponent" type="Node3D" parent="ViewportContainer/GameplayViewport/GameplayScene/CameraLookTarget"]
 script = ExtResource("10_i3a8a")
 CameraData = ExtResource("8_cx887")
-TargetFollowObjectPath = NodePath("../../PlayerRigidBody")
+TargetFollowObjectPath = NodePath("../../PlayerRigidBodyComponent")
 CameraTargetRootPath = NodePath("..")
 
 [node name="CameraRotationComponent" type="Node3D" parent="ViewportContainer/GameplayViewport/GameplayScene/CameraLookTarget"]
