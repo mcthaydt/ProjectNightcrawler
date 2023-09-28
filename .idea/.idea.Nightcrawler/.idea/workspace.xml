@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fdd73071-43e9-49bd-ab22-ad464aec7029" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/scripts/components/FollowParentComponent.cs" afterDir="false" />
+    <list default="true" id="fdd73071-43e9-49bd-ab22-ad464aec7029" name="Changes" comment="Added Follow Component">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Nightcrawler/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Nightcrawler/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nightcrawler.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/nightcrawler.tscn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/data/PlayerData.tres" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/data/PlayerData.tres" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/states/PlayerGroundedState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/states/PlayerGroundedState.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +109,7 @@
       <workItem from="1695262524175" duration="2643000" />
       <workItem from="1695506465066" duration="1475000" />
       <workItem from="1695508155248" duration="10056000" />
-      <workItem from="1695858285981" duration="499000" />
+      <workItem from="1695858285981" duration="1899000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -157,7 +159,15 @@
       <option name="project" value="LOCAL" />
       <updated>1695523197662</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Added Follow Component">
+      <option name="closed" value="true" />
+      <created>1695858840332</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1695858840332</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -173,6 +183,7 @@
     <MESSAGE value="Made Prettier" />
     <MESSAGE value="QOF improvements for tilting; you need to hold the button for a time before it actually starts the tilt" />
     <MESSAGE value="State machine added" />
-    <option name="LAST_COMMIT_MESSAGE" value="State machine added" />
+    <MESSAGE value="Added Follow Component" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Follow Component" />
   </component>
 </project>
