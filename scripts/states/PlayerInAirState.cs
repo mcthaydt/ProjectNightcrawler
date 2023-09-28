@@ -1,22 +1,20 @@
 using Godot;
 
-public partial class PlayerGroundedState : State 
+public partial class PlayerInAirState : State 
 {
 	[Export] public Resource PlayerData; 
-	private float _jumpPower;
+	private float _slamPower = 0.0f;
 
 	[Export] public NodePath PlayerRigidBodyPath;
 	private RigidBody3D _playerRigidBody;
-
+	
 	[Export] public NodePath PlayerRayCastPath;
 	private RayCast3D _playerRayCast;
+
+	[Export] public int SlamMultiplier = 3;
+	private const int SlamScaling = 10;
 	
-	[Export] public int JumpMultiplier = 3;
-	private const int JumpScaling = 10;
-	
-	private const float CoyoteTime = 0.1f; 
-	private float _coyoteTimeRemaining = 0f;	
-	private bool _alreadyJumped;
+	private bool _alreadySlammed;
 	
 	public override void Enter()
 	{
@@ -32,7 +30,7 @@ public partial class PlayerGroundedState : State
 		
 		if (PlayerData is BaseCharacterData baseCharacterData)
 		{
-			baseCharacterData.CurrentPrimaryCharacterState = BaseCharacterData.PrimaryCharacterState.Grounded;
+			baseCharacterData.CurrentPrimaryCharacterState = BaseCharacterData.PrimaryCharacterState.InAir;
 		}
 		else
 		{
@@ -43,7 +41,7 @@ public partial class PlayerGroundedState : State
 	{
 		if (PlayerData is BaseCharacterData baseCharacterData)
 		{
-			_jumpPower = baseCharacterData.JumpPower;
+			_slamPower = baseCharacterData.JumpPower;
 		}
 		else
 		{
@@ -51,16 +49,15 @@ public partial class PlayerGroundedState : State
 			return;
 		}
 		
-		if (Input.IsActionJustPressed("Jump") & !_alreadyJumped)
+		if (Input.IsActionJustPressed("Jump") && !_alreadySlammed)
 		{
-			_playerRigidBody.ApplyCentralImpulse(Vector3.Up * baseCharacterData.JumpPower * JumpMultiplier * JumpScaling);
-			_alreadyJumped = true;
+			_playerRigidBody.ApplyCentralImpulse(Vector3.Up * -baseCharacterData.JumpPower * SlamMultiplier * SlamScaling); 
+			_alreadySlammed = true;
 		}
-	
-		if (_playerRayCast.IsColliding() == false)
+		if (_playerRayCast.IsColliding())
 		{
-			_alreadyJumped = false;
-			EmitSignal(State.SignalName.TransitionState, this, "PlayerInAirState");
+			EmitSignal(State.SignalName.TransitionState, this, "PlayerGroundedState");
+			_alreadySlammed = false;
 		}	
 	}
 }

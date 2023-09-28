@@ -4,7 +4,7 @@ using System;
 public partial class State : Node
 {
 	[Signal]
-	public delegate void TransitionStateEventHandler(State from, State to);
+	public delegate void TransitionStateEventHandler(State from, string to);
 	
 	public virtual void Enter()
 	{

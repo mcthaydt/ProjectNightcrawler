@@ -4,7 +4,7 @@ using Godot.Collections;
 public partial class StateMachine : Node
 {
 	Dictionary _states = new Godot.Collections.Dictionary();
-	State _currentState;
+	public State CurrentState;
 	
 	[Export] public State InitialState;
 	[Export] public Array<State> StateCollection;
@@ -12,47 +12,47 @@ public partial class StateMachine : Node
 	{
 		foreach (var state in StateCollection)
 		{
-			_states.Add(state.Name.ToString()!.ToLower(), state);
+			_states.Add(state.Name, state);
 			state.TransitionState += OnTransitionState;
 		}
 		
 		if (InitialState != null)
 		{
 			InitialState.Enter();
-			_currentState = InitialState;
+			CurrentState = InitialState;
 		}
 	}
 
 	public override void _Process(double delta)
 	{
-		if (_currentState != null)
+		if (CurrentState != null)
 		{
-			_currentState.Update(delta);
+			CurrentState.Update(delta);
 		}
 	}
 	
 	public override void _PhysicsProcess(double delta)
 	{
-		if (_currentState != null)
+		if (CurrentState != null)
 		{
-			_currentState.PhysicsUpdate(delta);
+			CurrentState.PhysicsUpdate(delta);
 		}
 	}
 
-	private void OnTransitionState(State prevState, State nextState)
+	private void OnTransitionState(State prevState, string nextState)
 	{
-		if (prevState != _currentState)
+		if (prevState != CurrentState)
 		{
 			return;
 		}
 		
-		if (_currentState != null)
+		if (CurrentState != null)
 		{
-			_currentState.Exit();
+			CurrentState.Exit();
 		}
 		
-		State newState = (State)_states[nextState.Name.ToString()!.ToLower()];
+		State newState = (State)_states[nextState];
 		newState.Enter();
-		_currentState = newState;
+		CurrentState = newState;
 	}
 }

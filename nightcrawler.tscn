@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dbo8ivftadkha"]
+[gd_scene load_steps=33 format=3 uid="uid://dbo8ivftadkha"]
 
 [ext_resource type="Shader" path="res://scripts/shaders/Vignette.gdshader" id="1_mfje7"]
 [ext_resource type="Texture2D" uid="uid://b8qusqf0c7jri" path="res://scripts/assets/textures/4_3_aspect_ratio_bars_pillarbox_by_logosscreenbugsmore_dehryca-pre.png" id="1_rvo6u"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://scripts/components/FollowParentComponent.cs" id="11_4x588"]
 [ext_resource type="Shader" path="res://scripts/shaders/GradientSky.gdshader" id="11_ssra5"]
 [ext_resource type="Script" path="res://scripts/components/camera/CameraRotationComponent.cs" id="12_6xvgm"]
+[ext_resource type="Script" path="res://scripts/states/PlayerInAirState.cs" id="12_f7pkp"]
 [ext_resource type="Script" path="res://scripts/components/camera/CameraTiltComponent.cs" id="13_mmcye"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yoqsv"]
@@ -65,6 +66,9 @@ shader_parameter/shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m2tox"]
 size = Vector3(5.0074, 0.548257, 5.03496)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3log4"]
+bounce = 0.45
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qmmij"]
 albedo_texture = ExtResource("7_kmds5")
@@ -175,6 +179,7 @@ shape = SubResource("BoxShape3D_m2tox")
 [node name="PlayerRigidBodyComponent" type="RigidBody3D" parent="ViewportContainer/GameplayViewport/GameplayScene"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.76886, 0)
 mass = 40.0
+physics_material_override = SubResource("PhysicsMaterial_3log4")
 linear_damp = 1.0
 constant_force = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
 script = ExtResource("4_s8pou")
@@ -195,17 +200,23 @@ PlayerData = ExtResource("5_ugqot")
 [node name="PlayerStateMachine" type="Node" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBodyComponent" node_paths=PackedStringArray("InitialState", "StateCollection")]
 script = ExtResource("10_30v1k")
 InitialState = NodePath("PlayerGroundedState")
-StateCollection = [NodePath("PlayerGroundedState")]
+StateCollection = [NodePath("PlayerGroundedState"), NodePath("PlayerInAirState")]
 
 [node name="PlayerGroundedState" type="Node" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBodyComponent/PlayerStateMachine"]
 script = ExtResource("10_xgg2v")
 PlayerData = ExtResource("5_ugqot")
 PlayerRigidBodyPath = NodePath("../..")
-JumpMultipler = 2
+PlayerRayCastPath = NodePath("../../PlayerRayCast")
 
 [node name="PlayerInAirState" type="Node" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBodyComponent/PlayerStateMachine"]
+script = ExtResource("12_f7pkp")
+PlayerData = ExtResource("5_ugqot")
+PlayerRigidBodyPath = NodePath("../..")
+PlayerRayCastPath = NodePath("../../PlayerRayCast")
+SlamMultiplier = 5
 
 [node name="PlayerRayCast" type="RayCast3D" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBodyComponent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.76886, 0)
 top_level = true
 target_position = Vector3(2.08165e-12, -0.575, 2.08165e-12)
 
