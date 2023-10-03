@@ -13,16 +13,7 @@ public partial class BaseCharacterData : Resource
         InAir,
         Death
     }
-    private enum GroundedCharacterState
-    {
-        Idle,
-        Moving 
-    }
-    private enum InAirCharacterState 
-    {
-        Jumping,
-        Falling 
-    }
+    
     [Export] public float MovementSpeed { get; set; }
     [Export] public Vector3 Velocity { get; set; }
     [Export] public float JumpPower { get; set; }

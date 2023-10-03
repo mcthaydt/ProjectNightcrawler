@@ -19,7 +19,7 @@ ResourceScriptDirectories=["res://"]
 config/name="Nightcrawler"
 run/main_scene="res://nightcrawler.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
-run/max_fps=60
+run/max_fps=120
 config/icon="res://icon.svg"
 
 [autoload]
@@ -31,7 +31,7 @@ PersistentSceneManager="*res://scripts/managers/PersistentSceneManager.cs"
 
 window/size/viewport_width=920
 window/size/viewport_height=540
-window/size/resizable=false
+window/size/mode=3
 window/size/window_width_override=1920
 window/size/window_height_override=1080
 window/stretch/mode="viewport"
@@ -79,6 +79,7 @@ Jump={
 
 [physics]
 
+common/max_physics_steps_per_frame=16
 3d/physics_engine="JoltPhysics3D"
 3d/solver/solver_iterations=32
 

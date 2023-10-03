@@ -51,7 +51,7 @@ public partial class PlayerGroundedState : State
 			return;
 		}
 		
-		if (Input.IsActionJustPressed("Jump") & !_alreadyJumped)
+		if (Input.IsActionJustPressed("Jump") & !_alreadyJumped & _playerRayCast.IsColliding())
 		{
 			_playerRigidBody.ApplyCentralImpulse(Vector3.Up * baseCharacterData.JumpPower * JumpMultiplier * JumpScaling);
 			_alreadyJumped = true;
