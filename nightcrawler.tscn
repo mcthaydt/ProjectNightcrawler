@@ -1,15 +1,15 @@
 [gd_scene load_steps=34 format=3 uid="uid://dbo8ivftadkha"]
 
 [ext_resource type="Shader" path="res://scripts/shaders/Vignette.gdshader" id="1_mfje7"]
-[ext_resource type="Texture2D" uid="uid://b8qusqf0c7jri" path="res://scripts/assets/textures/4_3_aspect_ratio_bars_pillarbox_by_logosscreenbugsmore_dehryca-pre.png" id="1_rvo6u"]
+[ext_resource type="Texture2D" uid="uid://b8qusqf0c7jri" path="res://assets/textures/4_3_aspect_ratio_bars_pillarbox_by_logosscreenbugsmore_dehryca-pre.png" id="1_o7iay"]
 [ext_resource type="Shader" path="res://scripts/shaders/CRT.gdshader" id="2_0j5aa"]
 [ext_resource type="Shader" path="res://scripts/shaders/3DPixelArtOutline.gdshader" id="3_l5jct"]
 [ext_resource type="PackedScene" uid="uid://cfmmwmjcril2w" path="res://objects/Platform.tscn" id="4_cp1mn"]
 [ext_resource type="Script" path="res://scripts/systems/PlatformSpawningSystem.cs" id="5_ijox4"]
 [ext_resource type="Script" path="res://scripts/components/player/PlayerPhysicsComponent.cs" id="5_k7h41"]
 [ext_resource type="Resource" uid="uid://cg0lpsttvtbjn" path="res://scripts/data/PlayerData.tres" id="5_ugqot"]
-[ext_resource type="Texture2D" uid="uid://bcbjjumdt8q3s" path="res://textures/MarbleTexture.png" id="7_6gsd0"]
 [ext_resource type="Resource" uid="uid://c848n00qvyrao" path="res://scripts/data/GameplayCameraData.tres" id="8_cx887"]
+[ext_resource type="Texture2D" uid="uid://bcbjjumdt8q3s" path="res://assets/textures/MarbleTexture.png" id="8_x4m21"]
 [ext_resource type="Script" path="res://scripts/components/player/PlayerPhysicsAdaptToFrameRateComponent.cs" id="9_87lpt"]
 [ext_resource type="Script" path="res://scripts/components/player/PlayerMovementComponent.cs" id="9_ha3hr"]
 [ext_resource type="Script" path="res://scripts/util/StateMachine.cs" id="10_30v1k"]
@@ -22,7 +22,7 @@
 [ext_resource type="Script" path="res://scripts/components/camera/CameraTiltComponent.cs" id="13_mmcye"]
 [ext_resource type="Script" path="res://scripts/components/BlobShadowComponent.cs" id="14_cy2ks"]
 [ext_resource type="Script" path="res://scripts/components/camera/AdaptiveCameraFOVComponent.cs" id="16_4kae6"]
-[ext_resource type="Texture2D" uid="uid://frg3qes1ejex" path="res://textures/BlobShadow.png" id="16_c15r4"]
+[ext_resource type="Texture2D" uid="uid://frg3qes1ejex" path="res://assets/textures/BlobShadow.png" id="17_tplxu"]
 
 [sub_resource type="GDScript" id="GDScript_07fil"]
 resource_name = "Nightcrawler"
@@ -64,7 +64,7 @@ shader_parameter/timer_multiplier = 1.0
 bounce = 0.45
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qmmij"]
-albedo_texture = ExtResource("7_6gsd0")
+albedo_texture = ExtResource("8_x4m21")
 uv1_scale = Vector3(2, 2, 2)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f6pxm"]
@@ -140,7 +140,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_rvo6u")
+texture = ExtResource("1_o7iay")
 expand_mode = 2
 
 [node name="Vignette" type="ColorRect" parent="ViewportContainer/GameplayViewport"]
@@ -241,7 +241,7 @@ DropShadowSpritePath = NodePath("DropShadow")
 [node name="DropShadow" type="Sprite3D" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBodyComponent/DropShadowRayCast"]
 transform = Transform3D(0.4, -2.66569e-31, 1.16521e-38, 0, -1.74846e-08, -0.4, 2.66569e-31, 0.4, -1.74846e-08, 2.08165e-12, 2.08165e-12, 2.08165e-12)
 top_level = true
-texture = ExtResource("16_c15r4")
+texture = ExtResource("17_tplxu")
 
 [node name="FollowComponent" type="Node3D" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBodyComponent/DropShadowRayCast"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
