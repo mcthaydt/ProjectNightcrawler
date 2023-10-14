@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://dbo8ivftadkha"]
+[gd_scene load_steps=33 format=3 uid="uid://dbo8ivftadkha"]
 
 [ext_resource type="Shader" path="res://scripts/shaders/Vignette.gdshader" id="1_mfje7"]
 [ext_resource type="Texture2D" uid="uid://b8qusqf0c7jri" path="res://assets/textures/4_3_aspect_ratio_bars_pillarbox_by_logosscreenbugsmore_dehryca-pre.png" id="1_o7iay"]
@@ -17,7 +17,6 @@
 [ext_resource type="Script" path="res://scripts/states/PlayerGroundedState.cs" id="10_xgg2v"]
 [ext_resource type="Script" path="res://scripts/components/FollowParentComponent.cs" id="11_4x588"]
 [ext_resource type="Shader" path="res://scripts/shaders/GradientSky.gdshader" id="11_ssra5"]
-[ext_resource type="Script" path="res://scripts/components/camera/CameraRotationComponent.cs" id="12_6xvgm"]
 [ext_resource type="Script" path="res://scripts/states/PlayerInAirState.cs" id="12_f7pkp"]
 [ext_resource type="Script" path="res://scripts/components/camera/CameraTiltComponent.cs" id="13_mmcye"]
 [ext_resource type="Script" path="res://scripts/components/BlobShadowComponent.cs" id="14_cy2ks"]
@@ -278,9 +277,6 @@ script = ExtResource("10_i3a8a")
 CameraData = ExtResource("8_cx887")
 TargetFollowObjectPath = NodePath("../../PlayerRigidBodyComponent")
 CameraTargetRootPath = NodePath("..")
-
-[node name="CameraRotationComponent" type="Node3D" parent="ViewportContainer/GameplayViewport/GameplayScene/CameraLookTarget"]
-script = ExtResource("12_6xvgm")
 
 [node name="CameraTiltComponent" type="Node3D" parent="ViewportContainer/GameplayViewport/GameplayScene/CameraLookTarget"]
 script = ExtResource("13_mmcye")
