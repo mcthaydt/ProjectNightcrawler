@@ -5,13 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fdd73071-43e9-49bd-ab22-ad464aec7029" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BlobShadow.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlobShadow.png.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/objects/Platform.tscn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/components/BlobShadowComponent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/components/camera/AdaptiveCameraFOVComponent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/systems/PlatformSpawningSystem.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/textures/BlobShadow.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/textures/BlobShadow.png.import" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/textures/MarbleTexture.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/textures/MarbleTexture.png.import" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Nightcrawler/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Nightcrawler/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlobShadow.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlobShadow.png.import" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/nightcrawler.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/nightcrawler.tscn" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project.godot" beforeDir="false" afterPath="$PROJECT_DIR$/project.godot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/data/base_resources/BaseCharacterData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/data/base_resources/BaseCharacterData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/states/PlayerGroundedState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/states/PlayerGroundedState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/components/PlayerMovementComponent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/components/PlayerPhysicsComponent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/data/PlayerData.tres" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/data/PlayerData.tres" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +123,14 @@
       <workItem from="1695858285981" duration="7982000" />
       <workItem from="1696200958123" duration="162000" />
       <workItem from="1696288981290" duration="4000" />
-      <workItem from="1696289572931" duration="865000" />
+      <workItem from="1696289572931" duration="906000" />
+      <workItem from="1696380172219" duration="8000" />
+      <workItem from="1696380409925" duration="4000" />
+      <workItem from="1696383168122" duration="3167000" />
+      <workItem from="1697295481394" duration="59000" />
+      <workItem from="1697295576885" duration="1720000" />
+      <workItem from="1697297550180" duration="1902000" />
+      <workItem from="1697299471252" duration="1079000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -197,7 +212,15 @@
       <option name="project" value="LOCAL" />
       <updated>1695866266516</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Added Blob Shadow and Camera FOV and basic game manager (GDScript)">
+      <option name="closed" value="true" />
+      <created>1696292895991</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1696292895991</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -217,6 +240,7 @@
     <MESSAGE value="Added PlayerMovementComponent back" />
     <MESSAGE value="Modified Player Grounded State" />
     <MESSAGE value="Added Jumping and Slamming" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Jumping and Slamming" />
+    <MESSAGE value="Added Blob Shadow and Camera FOV and basic game manager (GDScript)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Blob Shadow and Camera FOV and basic game manager (GDScript)" />
   </component>
 </project>

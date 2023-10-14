@@ -1,0 +1,39 @@
+[gd_scene load_steps=8 format=3 uid="uid://cfmmwmjcril2w"]
+
+[ext_resource type="Texture2D" uid="uid://b1vit2s2gsfhy" path="res://scripts/assets/textures/SBS - Tiny Texture Pack 2 - 128x128/128x128/Brick/Brick_06-128x128.png" id="1_qplbw"]
+[ext_resource type="Shader" path="res://scripts/shaders/3DPixelArtOutline.gdshader" id="2_0c4mj"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8m6dm"]
+size = Vector3(5, 0.5, 5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ts3ba"]
+albedo_color = Color(0.72549, 0.647059, 0.556863, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_73vqa"]
+next_pass = SubResource("StandardMaterial3D_ts3ba")
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_qplbw")
+uv1_scale = Vector3(6, 6, 6)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l4gi6"]
+render_priority = 0
+next_pass = SubResource("StandardMaterial3D_73vqa")
+shader = ExtResource("2_0c4mj")
+shader_parameter/shadows_enabled = true
+shader_parameter/highlights_enabled = true
+shader_parameter/shadow_strength = 0.4
+shader_parameter/highlight_strength = 0.1
+shader_parameter/highlight_color = Color(1, 1, 1, 1)
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m2tox"]
+size = Vector3(5.0074, 0.548257, 5.03496)
+
+[node name="FloorStaticBody" type="StaticBody3D"]
+
+[node name="FloorMesh" type="CSGMesh3D" parent="."]
+mesh = SubResource("BoxMesh_8m6dm")
+material = SubResource("ShaderMaterial_l4gi6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_m2tox")

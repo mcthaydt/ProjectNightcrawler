@@ -1,15 +1,17 @@
-[gd_scene load_steps=33 format=3 uid="uid://dbo8ivftadkha"]
+[gd_scene load_steps=34 format=3 uid="uid://dbo8ivftadkha"]
 
 [ext_resource type="Shader" path="res://scripts/shaders/Vignette.gdshader" id="1_mfje7"]
 [ext_resource type="Texture2D" uid="uid://b8qusqf0c7jri" path="res://scripts/assets/textures/4_3_aspect_ratio_bars_pillarbox_by_logosscreenbugsmore_dehryca-pre.png" id="1_rvo6u"]
 [ext_resource type="Shader" path="res://scripts/shaders/CRT.gdshader" id="2_0j5aa"]
 [ext_resource type="Shader" path="res://scripts/shaders/3DPixelArtOutline.gdshader" id="3_l5jct"]
-[ext_resource type="PackedScene" uid="uid://cfmmwmjcril2w" path="res://Platform.tscn" id="4_cp1mn"]
-[ext_resource type="Script" path="res://scripts/components/PlayerPhysicsComponent.cs" id="4_s8pou"]
+[ext_resource type="PackedScene" uid="uid://cfmmwmjcril2w" path="res://objects/Platform.tscn" id="4_cp1mn"]
+[ext_resource type="Script" path="res://scripts/systems/PlatformSpawningSystem.cs" id="5_ijox4"]
+[ext_resource type="Script" path="res://scripts/components/player/PlayerPhysicsComponent.cs" id="5_k7h41"]
 [ext_resource type="Resource" uid="uid://cg0lpsttvtbjn" path="res://scripts/data/PlayerData.tres" id="5_ugqot"]
-[ext_resource type="Texture2D" uid="uid://d2dilfqrgy6en" path="res://scripts/assets/textures/SBS - Tiny Texture Pack 2 - 128x128/128x128/Plaster/Plaster_02-128x128.png" id="7_kmds5"]
+[ext_resource type="Texture2D" uid="uid://bcbjjumdt8q3s" path="res://textures/MarbleTexture.png" id="7_6gsd0"]
 [ext_resource type="Resource" uid="uid://c848n00qvyrao" path="res://scripts/data/GameplayCameraData.tres" id="8_cx887"]
-[ext_resource type="Script" path="res://scripts/components/PlayerMovementComponent.cs" id="9_7388k"]
+[ext_resource type="Script" path="res://scripts/components/player/PlayerPhysicsAdaptToFrameRateComponent.cs" id="9_87lpt"]
+[ext_resource type="Script" path="res://scripts/components/player/PlayerMovementComponent.cs" id="9_ha3hr"]
 [ext_resource type="Script" path="res://scripts/util/StateMachine.cs" id="10_30v1k"]
 [ext_resource type="Script" path="res://scripts/components/camera/CameraFollowComponent.cs" id="10_i3a8a"]
 [ext_resource type="Script" path="res://scripts/states/PlayerGroundedState.cs" id="10_xgg2v"]
@@ -18,7 +20,9 @@
 [ext_resource type="Script" path="res://scripts/components/camera/CameraRotationComponent.cs" id="12_6xvgm"]
 [ext_resource type="Script" path="res://scripts/states/PlayerInAirState.cs" id="12_f7pkp"]
 [ext_resource type="Script" path="res://scripts/components/camera/CameraTiltComponent.cs" id="13_mmcye"]
-[ext_resource type="Texture2D" uid="uid://frg3qes1ejex" path="res://BlobShadow.png" id="14_c3cl7"]
+[ext_resource type="Script" path="res://scripts/components/BlobShadowComponent.cs" id="14_cy2ks"]
+[ext_resource type="Script" path="res://scripts/components/camera/AdaptiveCameraFOVComponent.cs" id="16_4kae6"]
+[ext_resource type="Texture2D" uid="uid://frg3qes1ejex" path="res://textures/BlobShadow.png" id="16_c15r4"]
 
 [sub_resource type="GDScript" id="GDScript_07fil"]
 resource_name = "Nightcrawler"
@@ -56,39 +60,11 @@ shader_parameter/wiggle = true
 shader_parameter/bleed = false
 shader_parameter/timer_multiplier = 1.0
 
-[sub_resource type="GDScript" id="GDScript_tg05o"]
-resource_name = "FloorContainer"
-script/source = "extends Node3D
-
-var platform_scene : PackedScene = preload(\"res://Platform.tscn\")  # Load the platform scene
-var platform_distance_z : float = 8.0
-var platform_distance_x : float = 7.0  # Adjust the horizontal distance between platforms
-var platform_distance_y_min : float = -1.0  # Adjust the minimum vertical distance
-var platform_distance_y_max : float = 3.0  # Adjust the maximum vertical distance
-
-func _ready():
-	spawn_platforms()
-
-func spawn_platforms():
-	var z_position : float = 0.0  # Start at the initial Z position
-	
-	for i in range(20):  # Spawn 20 platforms
-		var platform_instance : Node3D = platform_scene.instantiate() as Node3D  # Create an instance of the platform scene
-		platform_instance.transform.origin.z = z_position  # Set the platform's Z position
-		platform_instance.transform.origin.z = z_position  # Set the platform's Z position
-		platform_instance.transform.origin.x = randf_range(-platform_distance_x, platform_distance_x)  # Randomize horizontal placement
-		platform_instance.transform.origin.y = randf_range(platform_distance_y_min, platform_distance_y_max)  # Randomize vertical placement
-		add_child(platform_instance)  # Add the platform to the level
-		z_position -= platform_distance_z  # Increase the Z position for the next platform
-
-
-"
-
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3log4"]
 bounce = 0.45
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qmmij"]
-albedo_texture = ExtResource("7_kmds5")
+albedo_texture = ExtResource("7_6gsd0")
 uv1_scale = Vector3(2, 2, 2)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f6pxm"]
@@ -100,65 +76,9 @@ shader_parameter/highlights_enabled = true
 shader_parameter/shadow_strength = 0.4
 shader_parameter/highlight_strength = 0.1
 shader_parameter/highlight_color = Color(1, 1, 1, 1)
-shader_parameter/shadow_color = Color(0.27451, 0, 0, 1)
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_214gn"]
-
-[sub_resource type="GDScript" id="GDScript_l0eal"]
-resource_name = "DropShadowRaycastComponent"
-script/source = "extends RayCast3D
-
-@export var DrophadowSpriteNodePath: NodePath
-var DropShadow: Sprite3D
-
-func _ready():
-	if DrophadowSpriteNodePath:
-		DropShadow = get_node(DrophadowSpriteNodePath)
-	pass
-
-func _process(delta):
-	if is_colliding():
-		DropShadow.visible = true
-	else:
-		DropShadow.visible = false
-	DropShadow.transform.origin.x = get_collision_point().x
-	DropShadow.transform.origin.y = get_collision_point().y
-	DropShadow.transform.origin.z = get_collision_point().z + 0.2
-	pass
-"
-
-[sub_resource type="GDScript" id="GDScript_xm3jw"]
-resource_name = "CameraFOVComponent"
-script/source = "extends Node3D
-
-@export var CameraPath: NodePath
-var camera : Camera3D
-@export var PlayerRigidBodyPath: NodePath
-var playerRigidBody : RigidBody3D
-var playerSpeed : float
-var curCameraFOV : float
-
-func _ready():
-	if CameraPath:
-		camera = get_node(CameraPath)
-	if PlayerRigidBodyPath:
-		playerRigidBody = get_node(PlayerRigidBodyPath)
-
-	pass
-
-
-func _process(delta):
-	playerSpeed = playerRigidBody.linear_velocity.length()
-	var mapped_value = lerp(0, 5, (playerSpeed - 0) / (15 - 0))
-	
-	if playerSpeed > 0:
-		curCameraFOV = 46 + mapped_value
-	else:
-		curCameraFOV = 46
-		
-	camera.fov = lerp(camera.fov, curCameraFOV, delta * 5)
-	pass
-"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dk6d8"]
 shader = ExtResource("11_ssra5")
@@ -181,10 +101,18 @@ ssr_enabled = true
 ssao_enabled = true
 ssil_enabled = true
 sdfgi_enabled = true
+sdfgi_use_occlusion = true
 glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0, 0, 0, 1)
+fog_light_energy = 3.11
+fog_sun_scatter = 0.16
+fog_aerial_perspective = 0.44
+fog_sky_affect = 0.7
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.0064
-volumetric_fog_detail_spread = 3.21532
+volumetric_fog_density = 0.0052
+volumetric_fog_albedo = Color(1, 0.411765, 0.411765, 1)
+volumetric_fog_length = 37.74
 
 [node name="Nightcrawler" type="Node"]
 script = SubResource("GDScript_07fil")
@@ -245,7 +173,7 @@ scale = Vector2(0.76, 1)
 
 [node name="Floor Container" type="Node3D" parent="ViewportContainer/GameplayViewport/GameplayScene"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.67858)
-script = SubResource("GDScript_tg05o")
+script = ExtResource("5_ijox4")
 
 [node name="PlayerRigidBodyComponent" type="RigidBody3D" parent="ViewportContainer/GameplayViewport/GameplayScene"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.76886, 0)
@@ -253,19 +181,25 @@ mass = 40.0
 physics_material_override = SubResource("PhysicsMaterial_3log4")
 linear_damp = 1.0
 constant_force = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
-script = ExtResource("4_s8pou")
+script = ExtResource("5_k7h41")
 PlayerData = ExtResource("5_ugqot")
 
 [node name="PlayerMesh" type="CSGSphere3D" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBodyComponent"]
 radial_segments = 36
 material = SubResource("ShaderMaterial_f6pxm")
 
+[node name="AdaptedToFrameRateComponent" type="Node3D" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBodyComponent/PlayerMesh"]
+script = ExtResource("9_87lpt")
+PlayerData = ExtResource("5_ugqot")
+PlayerBodyPath = NodePath("..")
+ParentObjectPath = NodePath("../..")
+
 [node name="PlayerCollisionShape" type="CollisionShape3D" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBodyComponent"]
 shape = SubResource("SphereShape3D_214gn")
 
 [node name="PlayerMovementComponent" type="Node3D" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBodyComponent"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.76886, 0)
-script = ExtResource("9_7388k")
+script = ExtResource("9_ha3hr")
 PlayerData = ExtResource("5_ugqot")
 
 [node name="PlayerStateMachine" type="Node" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBodyComponent" node_paths=PackedStringArray("InitialState", "StateCollection")]
@@ -284,7 +218,7 @@ script = ExtResource("12_f7pkp")
 PlayerData = ExtResource("5_ugqot")
 PlayerRigidBodyPath = NodePath("../..")
 PlayerRayCastPath = NodePath("../../PlayerRayCast")
-SlamMultiplier = 5
+SlamMultiplier = 8
 
 [node name="PlayerRayCast" type="RayCast3D" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBodyComponent"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.76886, 0)
@@ -301,18 +235,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.0
 top_level = true
 target_position = Vector3(2.08165e-12, -20, 2.08165e-12)
 debug_shape_custom_color = Color(0.431373, 0.27451, 0, 1)
-script = SubResource("GDScript_l0eal")
-DrophadowSpriteNodePath = NodePath("DropShadow")
+script = ExtResource("14_cy2ks")
+DropShadowSpritePath = NodePath("DropShadow")
 
 [node name="DropShadow" type="Sprite3D" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBodyComponent/DropShadowRayCast"]
 transform = Transform3D(0.4, -2.66569e-31, 1.16521e-38, 0, -1.74846e-08, -0.4, 2.66569e-31, 0.4, -1.74846e-08, 2.08165e-12, 2.08165e-12, 2.08165e-12)
 top_level = true
-texture = ExtResource("14_c3cl7")
+texture = ExtResource("16_c15r4")
 
 [node name="FollowComponent" type="Node3D" parent="ViewportContainer/GameplayViewport/GameplayScene/PlayerRigidBodyComponent/DropShadowRayCast"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
 script = ExtResource("11_4x588")
 TargetObjectPath = NodePath("../..")
 FollowObjectPath = NodePath("..")
+FollowOffset = Vector3(2.08165e-12, 2.08165e-12, -0.75)
 
 [node name="CameraLookTarget" type="Node3D" parent="ViewportContainer/GameplayViewport/GameplayScene"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 3, 10)
@@ -333,7 +269,7 @@ current = true
 fov = 46.0
 
 [node name="CameraFOVComponent" type="Node3D" parent="ViewportContainer/GameplayViewport/GameplayScene/CameraLookTarget/CameraHorizontalTiltGimbal/CameraVerticalTiltGimbal/CameraHorizontalRotationGimbal/CameraVerticalRotationGimbal/GameplayCamera"]
-script = SubResource("GDScript_xm3jw")
+script = ExtResource("16_4kae6")
 CameraPath = NodePath("..")
 PlayerRigidBodyPath = NodePath("../../../../../../../PlayerRigidBodyComponent")
 
