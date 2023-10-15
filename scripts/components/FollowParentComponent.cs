@@ -1,5 +1,6 @@
 using Godot;
-using System;
+
+namespace Nightcrawler.scripts.components;
 
 public partial class FollowParentComponent : Node3D
 {
@@ -18,10 +19,18 @@ public partial class FollowParentComponent : Node3D
 		{
 			TargetObject = GetNode<Node3D>(TargetObjectPath);
 		}
+		else
+		{
+			GD.Print("Missing Target Object Node Path!");
+		}
 
 		if (FollowObjectPath != null)
 		{
 			FollowObject = GetNode<Node3D>(FollowObjectPath);
+		}
+		else
+		{
+			GD.Print("Missing Follow Object Node Path!");
 		}
 	}
 
@@ -32,7 +41,6 @@ public partial class FollowParentComponent : Node3D
 		{
 			return;
 		}
-		
 		
 		Vector3 curPos = FollowObject.GlobalTransform.Origin;
 		Vector3 targetPos = TargetObject.GlobalTransform.Origin;

@@ -1,4 +1,5 @@
 using Godot;
+using Nightcrawler.scripts.data.base_resources;
 
 public partial class PlayerGroundedState : State 
 {
@@ -32,7 +33,7 @@ public partial class PlayerGroundedState : State
 		
 		if (PlayerData is BaseCharacterData baseCharacterData)
 		{
-			baseCharacterData.CurrentPrimaryCharacterState = BaseCharacterData.PrimaryCharacterState.Grounded;
+			baseCharacterData.CurrentCharacterState = BaseCharacterData.CharacterState.Grounded;
 		}
 		else
 		{

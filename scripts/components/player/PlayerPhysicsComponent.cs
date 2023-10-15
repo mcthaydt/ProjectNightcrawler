@@ -1,5 +1,6 @@
 using Godot;
-using System;
+
+namespace Nightcrawler.scripts.components.player;
 
 public partial class PlayerPhysicsComponent : RigidBody3D 
 {
@@ -10,7 +11,7 @@ public partial class PlayerPhysicsComponent : RigidBody3D
 	
 	public override void _PhysicsProcess(double delta)
 	{
-		if (PlayerData is BaseCharacterData baseCharacterData)
+		if (PlayerData is data.base_resources.BaseCharacterData baseCharacterData)
 		{
 			_playerVelocity = baseCharacterData.Velocity;
 			_playerMovementSpeed = baseCharacterData.MovementSpeed;

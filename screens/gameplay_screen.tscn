@@ -1,0 +1,276 @@
+[gd_scene load_steps=32 format=3 uid="uid://ce2ywsiw6v6tb"]
+
+[ext_resource type="Texture2D" uid="uid://b8qusqf0c7jri" path="res://assets/textures/4_3_aspect_ratio_bars_pillarbox_by_logosscreenbugsmore_dehryca-pre.png" id="1_jjruq"]
+[ext_resource type="Shader" path="res://scripts/shaders/Vignette.gdshader" id="2_ul32c"]
+[ext_resource type="Shader" path="res://scripts/shaders/CRT.gdshader" id="3_djm51"]
+[ext_resource type="PackedScene" uid="uid://cfmmwmjcril2w" path="res://objects/Platform.tscn" id="4_14oi6"]
+[ext_resource type="Script" path="res://scripts/systems/PlatformSpawningSystem.cs" id="5_wi66v"]
+[ext_resource type="Script" path="res://scripts/components/player/PlayerPhysicsComponent.cs" id="6_5ybov"]
+[ext_resource type="Resource" uid="uid://cg0lpsttvtbjn" path="res://scripts/data/PlayerData.tres" id="7_lptkj"]
+[ext_resource type="Texture2D" uid="uid://bcbjjumdt8q3s" path="res://assets/textures/MarbleTexture.png" id="8_crgo4"]
+[ext_resource type="Shader" path="res://scripts/shaders/3DPixelArtOutline.gdshader" id="9_gpnpa"]
+[ext_resource type="Script" path="res://scripts/components/player/PlayerPhysicsAdaptToFrameRateComponent.cs" id="10_2g52e"]
+[ext_resource type="Script" path="res://scripts/components/player/PlayerMovementComponent.cs" id="11_omhtp"]
+[ext_resource type="Script" path="res://scripts/util/StateMachine.cs" id="12_x1edd"]
+[ext_resource type="Script" path="res://scripts/states/PlayerGroundedState.cs" id="13_712gn"]
+[ext_resource type="Script" path="res://scripts/states/PlayerInAirState.cs" id="14_2ap3y"]
+[ext_resource type="Script" path="res://scripts/components/FollowParentComponent.cs" id="15_t0d5a"]
+[ext_resource type="Script" path="res://scripts/components/BlobShadowComponent.cs" id="16_o3giy"]
+[ext_resource type="Texture2D" uid="uid://frg3qes1ejex" path="res://assets/textures/BlobShadow.png" id="17_o646l"]
+[ext_resource type="Script" path="res://scripts/components/camera/AdaptiveCameraFovComponent.cs" id="18_jgfxg"]
+[ext_resource type="Script" path="res://scripts/components/camera/CameraFollowComponent.cs" id="19_pt5lu"]
+[ext_resource type="Resource" uid="uid://c848n00qvyrao" path="res://scripts/data/GameplayCameraData.tres" id="20_pkjhm"]
+[ext_resource type="Script" path="res://scripts/components/camera/CameraTiltComponent.cs" id="21_kmb4c"]
+[ext_resource type="Shader" path="res://scripts/shaders/GradientSky.gdshader" id="22_u4d7n"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yoqsv"]
+shader = ExtResource("2_ul32c")
+shader_parameter/vignette_intensity = 0.39
+shader_parameter/vignette_opacity = 0.5
+shader_parameter/vignette_rgb = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tmp77"]
+shader = ExtResource("3_djm51")
+shader_parameter/curved_display = false
+shader_parameter/vignette = false
+shader_parameter/vlines = false
+shader_parameter/flicker = true
+shader_parameter/noise = true
+shader_parameter/tonemap = false
+shader_parameter/glow = true
+shader_parameter/ghosting = false
+shader_parameter/scanlines = false
+shader_parameter/level_adjustment = false
+shader_parameter/wiggle = true
+shader_parameter/bleed = false
+shader_parameter/timer_multiplier = 1.0
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3log4"]
+bounce = 0.45
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qmmij"]
+albedo_texture = ExtResource("8_crgo4")
+uv1_scale = Vector3(2, 2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f6pxm"]
+render_priority = 0
+next_pass = SubResource("StandardMaterial3D_qmmij")
+shader = ExtResource("9_gpnpa")
+shader_parameter/shadows_enabled = true
+shader_parameter/highlights_enabled = true
+shader_parameter/shadow_strength = 0.4
+shader_parameter/highlight_strength = 0.1
+shader_parameter/highlight_color = Color(1, 1, 1, 1)
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_214gn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dk6d8"]
+shader = ExtResource("22_u4d7n")
+shader_parameter/color_top = Color(0.91, 0.14, 1, 1)
+shader_parameter/color_horizon = Color(1, 0.4, 0.42, 1)
+shader_parameter/color_bottom = Color(1, 0.74, 0.39, 1)
+shader_parameter/exponent_factor_top = 1.0
+shader_parameter/exponent_factor_bottom = 1.0
+shader_parameter/intensity_amp = 1.0
+
+[sub_resource type="Sky" id="Sky_e3p5w"]
+sky_material = SubResource("ShaderMaterial_dk6d8")
+
+[sub_resource type="Environment" id="Environment_2l2n4"]
+background_mode = 2
+sky = SubResource("Sky_e3p5w")
+ambient_light_source = 3
+tonemap_mode = 3
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0, 0, 0, 1)
+fog_light_energy = 3.11
+fog_sun_scatter = 0.16
+fog_aerial_perspective = 0.44
+fog_sky_affect = 0.7
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0052
+volumetric_fog_albedo = Color(1, 0.411765, 0.411765, 1)
+volumetric_fog_length = 37.74
+
+[node name="GameplayScreen" type="SubViewportContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+stretch_shrink = 3
+
+[node name="GameplayViewport" type="SubViewport" parent="."]
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(306, 180)
+render_target_update_mode = 4
+
+[node name="4x3AspectRatio" type="TextureRect" parent="GameplayViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_jjruq")
+expand_mode = 2
+
+[node name="Vignette" type="ColorRect" parent="GameplayViewport"]
+z_index = 2
+material = SubResource("ShaderMaterial_yoqsv")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 38.39
+offset_right = 38.39
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.76, 1)
+
+[node name="CRT" type="ColorRect" parent="GameplayViewport"]
+z_index = 1
+material = SubResource("ShaderMaterial_tmp77")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 38.39
+offset_right = 38.39
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.76, 1)
+
+[node name="GameplayScene" type="Node3D" parent="GameplayViewport"]
+
+[node name="FloorStaticBody" parent="GameplayViewport/GameplayScene" instance=ExtResource("4_14oi6")]
+
+[node name="Floor Container" type="Node3D" parent="GameplayViewport/GameplayScene"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.67858)
+script = ExtResource("5_wi66v")
+
+[node name="PlayerRigidBodyComponent" type="RigidBody3D" parent="GameplayViewport/GameplayScene"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8759, 1.34631)
+mass = 40.0
+physics_material_override = SubResource("PhysicsMaterial_3log4")
+linear_damp = 1.0
+constant_force = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+script = ExtResource("6_5ybov")
+PlayerData = ExtResource("7_lptkj")
+
+[node name="PlayerMesh" type="CSGSphere3D" parent="GameplayViewport/GameplayScene/PlayerRigidBodyComponent"]
+radial_segments = 36
+material = SubResource("ShaderMaterial_f6pxm")
+
+[node name="AdaptedToFrameRateComponent" type="Node3D" parent="GameplayViewport/GameplayScene/PlayerRigidBodyComponent/PlayerMesh"]
+script = ExtResource("10_2g52e")
+PlayerData = ExtResource("7_lptkj")
+PlayerMeshPath = NodePath("..")
+
+[node name="PlayerCollisionShape" type="CollisionShape3D" parent="GameplayViewport/GameplayScene/PlayerRigidBodyComponent"]
+shape = SubResource("SphereShape3D_214gn")
+
+[node name="PlayerMovementComponent" type="Node3D" parent="GameplayViewport/GameplayScene/PlayerRigidBodyComponent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.76886, 0)
+script = ExtResource("11_omhtp")
+PlayerData = ExtResource("7_lptkj")
+
+[node name="PlayerStateMachine" type="Node" parent="GameplayViewport/GameplayScene/PlayerRigidBodyComponent" node_paths=PackedStringArray("InitialState", "StateCollection")]
+script = ExtResource("12_x1edd")
+InitialState = NodePath("PlayerInAirState")
+StateCollection = [NodePath("PlayerGroundedState"), NodePath("PlayerInAirState")]
+
+[node name="PlayerGroundedState" type="Node" parent="GameplayViewport/GameplayScene/PlayerRigidBodyComponent/PlayerStateMachine"]
+script = ExtResource("13_712gn")
+PlayerData = ExtResource("7_lptkj")
+PlayerRigidBodyPath = NodePath("../..")
+PlayerRayCastPath = NodePath("../../PlayerRayCast")
+
+[node name="PlayerInAirState" type="Node" parent="GameplayViewport/GameplayScene/PlayerRigidBodyComponent/PlayerStateMachine"]
+script = ExtResource("14_2ap3y")
+PlayerData = ExtResource("7_lptkj")
+PlayerRigidBodyPath = NodePath("../..")
+PlayerRayCastPath = NodePath("../../PlayerRayCast")
+SlamMultiplier = 8
+
+[node name="PlayerRayCast" type="RayCast3D" parent="GameplayViewport/GameplayScene/PlayerRigidBodyComponent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.76886, 0)
+top_level = true
+target_position = Vector3(2.08165e-12, -0.575, 2.08165e-12)
+
+[node name="FollowTopParentComponent" type="Node3D" parent="GameplayViewport/GameplayScene/PlayerRigidBodyComponent/PlayerRayCast"]
+script = ExtResource("15_t0d5a")
+TargetObjectPath = NodePath("../..")
+FollowObjectPath = NodePath("..")
+
+[node name="DropShadowRayCast" type="RayCast3D" parent="GameplayViewport/GameplayScene/PlayerRigidBodyComponent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+top_level = true
+target_position = Vector3(2.08165e-12, -20, 2.08165e-12)
+debug_shape_custom_color = Color(0.431373, 0.27451, 0, 1)
+script = ExtResource("16_o3giy")
+DropShadowSpritePath = NodePath("DropShadow")
+
+[node name="DropShadow" type="Sprite3D" parent="GameplayViewport/GameplayScene/PlayerRigidBodyComponent/DropShadowRayCast"]
+transform = Transform3D(0.4, -2.66569e-31, 1.16521e-38, 0, -1.74846e-08, -0.4, 2.66569e-31, 0.4, -1.74846e-08, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+top_level = true
+texture = ExtResource("17_o646l")
+
+[node name="FollowComponent" type="Node3D" parent="GameplayViewport/GameplayScene/PlayerRigidBodyComponent/DropShadowRayCast"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+script = ExtResource("15_t0d5a")
+TargetObjectPath = NodePath("../..")
+FollowObjectPath = NodePath("..")
+FollowOffset = Vector3(2.08165e-12, 2.08165e-12, -0.75)
+
+[node name="CameraHolder" type="Node3D" parent="GameplayViewport/GameplayScene"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 3, 10)
+
+[node name="CameraHorizontalTiltGimbal" type="Node3D" parent="GameplayViewport/GameplayScene/CameraHolder"]
+transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, -3.48787e-16, -3.48787e-16, 3.48787e-16, 1, 0, 0, 0)
+
+[node name="CameraVerticalTiltGimbal" type="Node3D" parent="GameplayViewport/GameplayScene/CameraHolder/CameraHorizontalTiltGimbal"]
+
+[node name="CameraHorizontalRotationGimbal" type="Node3D" parent="GameplayViewport/GameplayScene/CameraHolder/CameraHorizontalTiltGimbal/CameraVerticalTiltGimbal"]
+transform = Transform3D(1, -1.21652e-31, 0, -1.21652e-31, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="CameraVerticalRotationGimbal" type="Node3D" parent="GameplayViewport/GameplayScene/CameraHolder/CameraHorizontalTiltGimbal/CameraVerticalTiltGimbal/CameraHorizontalRotationGimbal"]
+
+[node name="GameplayCamera" type="Camera3D" parent="GameplayViewport/GameplayScene/CameraHolder/CameraHorizontalTiltGimbal/CameraVerticalTiltGimbal/CameraHorizontalRotationGimbal/CameraVerticalRotationGimbal"]
+transform = Transform3D(1, -4.68079e-16, 3.27753e-16, 3.27752e-16, 0.939693, 0.34202, -4.68079e-16, -0.34202, 0.939693, 2.08165e-12, 0, 0)
+current = true
+fov = 46.0
+
+[node name="CameraFOVComponent" type="Node3D" parent="GameplayViewport/GameplayScene/CameraHolder/CameraHorizontalTiltGimbal/CameraVerticalTiltGimbal/CameraHorizontalRotationGimbal/CameraVerticalRotationGimbal/GameplayCamera"]
+script = ExtResource("18_jgfxg")
+CameraPath = NodePath("..")
+PlayerRigidBodyPath = NodePath("../../../../../../../PlayerRigidBodyComponent")
+
+[node name="CameraFollowComponent" type="Node3D" parent="GameplayViewport/GameplayScene/CameraHolder"]
+script = ExtResource("19_pt5lu")
+CameraData = ExtResource("20_pkjhm")
+TargetFollowObjectPath = NodePath("../../PlayerRigidBodyComponent")
+CameraHolderRootPath = NodePath("..")
+
+[node name="CameraTiltComponent" type="Node3D" parent="GameplayViewport/GameplayScene/CameraHolder"]
+script = ExtResource("21_kmb4c")
+CameraData = ExtResource("20_pkjhm")
+CameraHorizontalTiltGimbalNodePath = NodePath("../CameraHorizontalTiltGimbal")
+CameraVerticalTiltGimbalNodePath = NodePath("../CameraHorizontalTiltGimbal/CameraVerticalTiltGimbal")
+MaxCameraTiltDegree = 12.0
+TimeBeforeTiltStarts = 0.07
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="GameplayViewport/GameplayScene"]
+transform = Transform3D(-0.918099, 0.276994, -0.283493, -0.100935, 0.528279, 0.84305, 0.383283, 0.802618, -0.457054, 0, 5.50987, 8.21841)
+light_volumetric_fog_energy = 1.547
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="GameplayViewport/GameplayScene"]
+environment = SubResource("Environment_2l2n4")

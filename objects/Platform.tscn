@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://cfmmwmjcril2w"]
 
-[ext_resource type="Texture2D" uid="uid://b1vit2s2gsfhy" path="res://assets/textures/SBS - Tiny Texture Pack 2 - 128x128/128x128/Brick/Brick_06-128x128.png" id="1_bpu5d"]
+[ext_resource type="Texture2D" uid="uid://diuiy2v3q0ywq" path="res://assets/textures/Grass.png" id="1_tiky0"]
 [ext_resource type="Shader" path="res://scripts/shaders/3DPixelArtOutline.gdshader" id="2_0c4mj"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_8m6dm"]
@@ -12,8 +12,8 @@ albedo_color = Color(0.72549, 0.647059, 0.556863, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_73vqa"]
 next_pass = SubResource("StandardMaterial3D_ts3ba")
 vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("1_bpu5d")
-uv1_scale = Vector3(6, 6, 6)
+albedo_texture = ExtResource("1_tiky0")
+uv1_scale = Vector3(3, 2, 3)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l4gi6"]
 render_priority = 0

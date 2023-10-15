@@ -1,4 +1,5 @@
 using Godot;
+using Nightcrawler.scripts.data.base_resources;
 
 public partial class PlayerInAirState : State 
 {
@@ -30,7 +31,7 @@ public partial class PlayerInAirState : State
 		
 		if (PlayerData is BaseCharacterData baseCharacterData)
 		{
-			baseCharacterData.CurrentPrimaryCharacterState = BaseCharacterData.PrimaryCharacterState.InAir;
+			baseCharacterData.CurrentCharacterState = BaseCharacterData.CharacterState.InAir;
 		}
 		else
 		{

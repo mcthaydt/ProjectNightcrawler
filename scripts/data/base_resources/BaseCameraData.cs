@@ -1,6 +1,8 @@
 using Godot;
 using MonoCustomResourceRegistry;
 
+namespace Nightcrawler.scripts.data.base_resources;
+
 [RegisteredType(nameof(BaseCameraData))]
 public partial class BaseCameraData: Resource
 {

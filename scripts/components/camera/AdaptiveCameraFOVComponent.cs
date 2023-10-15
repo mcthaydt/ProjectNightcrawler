@@ -1,6 +1,8 @@
 using Godot;
 
-public partial class AdaptiveCameraFOVComponent : Node3D 
+namespace Nightcrawler.scripts.components.camera;
+
+public partial class AdaptiveCameraFovComponent : Node3D 
 {
 	[Export] public NodePath CameraPath;
 	public Camera3D GameCamera;
@@ -9,8 +11,12 @@ public partial class AdaptiveCameraFOVComponent : Node3D
 	public RigidBody3D PlayerRigidBody;
 	
 	private float _playerSpeed = 0.0f;
-	private float _curFOV = 46.0f;
+	private float _curFov = 46.0f;
 	private float _lerpSpeed = 5.0f;
+	
+	private const float MinFov = 46.0f;
+	private const float FovRange = 4.0f;
+	private const float MaxPlayerSpeed = 20.0f;
 	
 	public override void _Ready()
 	{
@@ -18,10 +24,18 @@ public partial class AdaptiveCameraFOVComponent : Node3D
 		{
 			GameCamera = GetNode<Camera3D>(CameraPath);
 		}
+		else
+		{
+			GD.Print("Missing Camera Node Path");
+		}
 		
 		if (PlayerRigidBodyPath != null)
 		{
 			PlayerRigidBody = GetNode<RigidBody3D>(PlayerRigidBodyPath);
+		}
+		else
+		{
+			GD.Print("Missing Player Rigidbody Node Path");
 		}
 	}
 
@@ -29,17 +43,17 @@ public partial class AdaptiveCameraFOVComponent : Node3D
 	{
 		_playerSpeed = PlayerRigidBody.LinearVelocity.Length();
 		
-		float mappedFOVValue = Mathf.Lerp(0.0f, 4.0f, _playerSpeed / 10.0f);
+		float adaptedFovValue = Mathf.Lerp(0.0f, FovRange, Mathf.InverseLerp(0.0f, MaxPlayerSpeed, _playerSpeed));
 		
 		if (_playerSpeed > 0.0f)
 		{
-			_curFOV = 46.0f + mappedFOVValue;
+			_curFov = MinFov + adaptedFovValue;
 		}
 		else
 		{
-			_curFOV = 46.0f;
+			_curFov = MinFov;
 		}
 
-		GameCamera.Fov = Mathf.Lerp(GameCamera.Fov, _curFOV, (float)delta * _lerpSpeed);
+		GameCamera.Fov = Mathf.Lerp(GameCamera.Fov, _curFov, (float)delta * _lerpSpeed);
 	}
 }

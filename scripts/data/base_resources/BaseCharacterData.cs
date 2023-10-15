@@ -1,12 +1,12 @@
 using Godot;
 using MonoCustomResourceRegistry;
 
+namespace Nightcrawler.scripts.data.base_resources;
+
 [RegisteredType(nameof(BaseCharacterData))]
 public partial class BaseCharacterData : Resource
 {
-    // Character should have a state machine that decides if motion
-    
-    public enum PrimaryCharacterState 
+    public enum CharacterState 
     {
         Spawning,
         Grounded,
@@ -17,15 +17,15 @@ public partial class BaseCharacterData : Resource
     [Export] public float MovementSpeed { get; set; }
     [Export] public Vector3 Velocity { get; set; }
     [Export] public float JumpPower { get; set; }
-    public PrimaryCharacterState CurrentPrimaryCharacterState { get; set; }
+    public CharacterState CurrentCharacterState { get; set; }
 
-    public BaseCharacterData() : this(0.0f, Vector3.Zero, 0.0f, PrimaryCharacterState.Spawning) {}
+    public BaseCharacterData() : this(0.0f, Vector3.Zero, 0.0f, CharacterState.Spawning) {}
 
-    public BaseCharacterData(float movementSpeed, Vector3 velocity, float jumpPower, PrimaryCharacterState primaryCharacterState)
+    public BaseCharacterData(float movementSpeed, Vector3 velocity, float jumpPower, CharacterState characterState)
     {
         MovementSpeed = movementSpeed;
         Velocity = velocity;
         JumpPower = jumpPower;
-        CurrentPrimaryCharacterState = primaryCharacterState;
+        CurrentCharacterState = characterState;
     }
 }

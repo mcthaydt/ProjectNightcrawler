@@ -1,4 +1,7 @@
 using Godot;
+
+namespace Nightcrawler.scripts.components;
+
 public partial class BlobShadowComponent : RayCast3D 
 {
 	[Export] public NodePath DropShadowSpritePath;
@@ -10,6 +13,10 @@ public partial class BlobShadowComponent : RayCast3D
 		if (DropShadowSpritePath != null)
 		{
 			DropShadowSprite = GetNode<Sprite3D>(DropShadowSpritePath);
+		}
+		else
+		{
+			GD.Print("Drop Shadow Sprite Path is Missing!");
 		}
 	}
 

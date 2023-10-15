@@ -1,5 +1,7 @@
 using Godot;
 
+namespace Nightcrawler.scripts.components.player;
+
 public partial class PlayerMovementComponent : Node3D
 {
 	[Export] public Resource PlayerData; 
@@ -7,7 +9,7 @@ public partial class PlayerMovementComponent : Node3D
 	
 	public override void _Process(double delta)
 	{
-		if (PlayerData is BaseCharacterData baseCharacterData)
+		if (PlayerData is data.base_resources.BaseCharacterData baseCharacterData)
 		{
 			_playerVelocity = baseCharacterData.Velocity;
 		}

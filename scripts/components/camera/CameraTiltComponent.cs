@@ -1,5 +1,7 @@
 using Godot;
 
+namespace Nightcrawler.scripts.components.camera;
+
 public partial class CameraTiltComponent : Node
 {
 	[Export] public Resource CameraData; 
@@ -24,10 +26,18 @@ public partial class CameraTiltComponent : Node
 		{
 			_cameraHorizontalTiltGimbal = GetNode<Node3D>(CameraHorizontalTiltGimbalNodePath);
 		}
+		else
+		{
+			GD.Print("Missing Camera Horizontal Tilt Gimbal Node Path!");
+		}
 		
 		if (CameraVerticalTiltGimbalNodePath != null)
 		{
 			_cameraVerticalTiltGimbal = GetNode<Node3D>(CameraVerticalTiltGimbalNodePath);
+		}
+		else
+		{
+			GD.Print("Missing Camera Vertical Tilt Gimbal Node Path!");
 		}
 	}
 	
@@ -40,7 +50,7 @@ public partial class CameraTiltComponent : Node
 		Vector3 currentCameraHorizontalTiltGimbalRotation = _cameraHorizontalTiltGimbal.Rotation;
 		Vector3 currentCameraVerticalTiltGimbalRotation = _cameraVerticalTiltGimbal.Rotation;
 
-		if (CameraData is BaseCameraData baseCameraData)
+		if (CameraData is data.base_resources.BaseCameraData baseCameraData)
 		{
 			_cameraTiltLerpSpeed = baseCameraData.TiltLerpSpeed;
 		}
@@ -60,8 +70,8 @@ public partial class CameraTiltComponent : Node
 			_keyPressCooldownTime += delta;
 			if (_keyPressCooldownTime > TimeBeforeTiltStarts / 1.3f)
 			{
-				 _keyPressTime = 0.0f;
-				 _keyPressCooldownTime = 0.0f;
+				_keyPressTime = 0.0f;
+				_keyPressCooldownTime = 0.0f;
 			}
 		}
 

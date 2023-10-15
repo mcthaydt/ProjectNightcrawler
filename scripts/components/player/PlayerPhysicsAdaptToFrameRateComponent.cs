@@ -2,36 +2,31 @@ using Godot;
 
 namespace Nightcrawler.scripts.components.player;
 
-public partial class PlayerPhysicsAdaptToFrameRateComponent : Node
+public partial class PlayerPhysicsAdaptToFrameRateComponent : Node3D
 {
 	[Export] public Resource PlayerData;
 	private Vector3 _playerVelocity;
 
-	[Export] public NodePath PlayerBodyPath;
-	private CsgSphere3D _playerBody;
-	
-	[Export] public NodePath ParentObjectPath;
-	private Node3D _parentObject;
+	[Export] public NodePath PlayerMeshPath;
+	private CsgSphere3D _playerMesh;
 	
 	private float _targetFps = 60.0f;
 	private float _lerpSpeed = 20.0f;
-
-	private Vector3 _followOffset = new Vector3(0.0f, 2.471f, 0.0f);
+	
 	public override void _Ready()
 	{
-		if (PlayerBodyPath != null)
+		if (PlayerMeshPath != null)
 		{
-			_playerBody = GetNode<CsgSphere3D>(PlayerBodyPath);
+			_playerMesh = GetNode<CsgSphere3D>(PlayerMeshPath);
 		}
-		
-		if (ParentObjectPath != null)
+		else
 		{
-			_parentObject = GetNode<Node3D>(ParentObjectPath);
+			GD.Print("Missing Player Body Node Path!");
 		}
 	}
 	public override void _Process(double delta)
 	{
-		if (PlayerData is BaseCharacterData baseCharacterData)
+		if (PlayerData is data.base_resources.BaseCharacterData baseCharacterData)
 		{
 			_playerVelocity = baseCharacterData.Velocity;
 		}
@@ -39,23 +34,23 @@ public partial class PlayerPhysicsAdaptToFrameRateComponent : Node
 		// Adapted to C# from Garbaj
 		float frameRate = (float)Engine.GetFramesPerSecond();
 		Vector3 lerpInterval = _playerVelocity / frameRate;
-		Vector3 lerpPosition = _playerBody.GlobalTransform.Origin + lerpInterval +_followOffset;
+		Vector3 lerpPosition = _playerMesh.GlobalTransform.Origin + lerpInterval;
 
 		if (frameRate > _targetFps)
 		{
-			_playerBody.TopLevel = true;
-			Transform3D playerBodyGlobalTransform = _playerBody.GlobalTransform;
-			playerBodyGlobalTransform.Origin = _playerBody.GlobalTransform.Origin.Lerp(lerpPosition, _lerpSpeed * (float)delta);
-			_playerBody.GlobalTransform = playerBodyGlobalTransform;
+			_playerMesh.TopLevel = true;
+			Transform3D playerBodyGlobalTransform = _playerMesh.GlobalTransform;
+			playerBodyGlobalTransform.Origin = _playerMesh.GlobalTransform.Origin.Lerp(lerpPosition, _lerpSpeed * (float)delta);
+			_playerMesh.GlobalTransform = playerBodyGlobalTransform;
 		}
 		else
 		{
-			_playerBody.GlobalTransform = _parentObject.GlobalTransform;
-			_playerBody.TopLevel = false;
+			_playerMesh.GlobalTransform = GlobalTransform;
+			_playerMesh.TopLevel = false;
 		}
 		
-		Transform3D bodyGlobalTransform = _playerBody.GlobalTransform;
-		bodyGlobalTransform.Basis = _parentObject.GlobalTransform.Basis;
-		_playerBody.GlobalTransform = bodyGlobalTransform;
+		Transform3D bodyGlobalTransform = _playerMesh.GlobalTransform;
+		bodyGlobalTransform.Basis = GlobalTransform.Basis;
+		_playerMesh.GlobalTransform = bodyGlobalTransform;
 	}
 }

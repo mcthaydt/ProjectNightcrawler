@@ -1,16 +1,16 @@
 using Godot;
 
-// TODO: Camera should tilt and rotate with mouse movement
+namespace Nightcrawler.scripts.components.camera;
 
 public partial class CameraFollowComponent : Node3D
 {
 	[Export] public Resource CameraData; 
 	
 	[Export] public NodePath TargetFollowObjectPath;
-	public Node3D TargetObject;
+	private Node3D _targetObject;
 	
-	[Export] public NodePath CameraTargetRootPath;
-	public Node3D CameraTargetRoot;
+	[Export] public NodePath CameraHolderRootPath;
+	private Node3D _cameraHolder;
 	
 	private Vector3 _cameraOffset = Vector3.Zero;
 	private float _cameraLerpSpeed = 0.0f;
@@ -19,22 +19,30 @@ public partial class CameraFollowComponent : Node3D
 	{
 		if (TargetFollowObjectPath != null)
 		{
-			TargetObject = GetNode<Node3D>(TargetFollowObjectPath);
+			_targetObject = GetNode<Node3D>(TargetFollowObjectPath);
+		}
+		else
+		{
+			GD.Print("Missing Target Object Path!");
 		}
 
-		if (CameraTargetRootPath != null)
+		if (CameraHolderRootPath != null)
 		{
-			CameraTargetRoot = GetNode<Node3D>(CameraTargetRootPath);
+			_cameraHolder = GetNode<Node3D>(CameraHolderRootPath);
+		}
+		else
+		{
+			GD.Print("Missing Camera Holder Path!");
 		}
 	}
 	public override void _Process(double delta)
 	{
-		if (TargetObject == null || CameraTargetRoot == null)
+		if (_targetObject == null || _cameraHolder == null)
 		{
 			return;
 		}
 		
-		if (CameraData is BaseCameraData baseCameraData)
+		if (CameraData is data.base_resources.BaseCameraData baseCameraData)
 		{
 			_cameraOffset = baseCameraData.CameraOffset;
 			_cameraLerpSpeed = baseCameraData.PositionLerpSpeed;
@@ -45,9 +53,9 @@ public partial class CameraFollowComponent : Node3D
 			return;
 		}	
 		
-		Vector3 curPos = CameraTargetRoot.GlobalTransform.Origin;
-		Vector3 targetPos = TargetObject.GlobalTransform.Origin;
+		Vector3 curPos = _cameraHolder.GlobalTransform.Origin;
+		Vector3 targetPos = _targetObject.GlobalTransform.Origin;
 		curPos = curPos.Lerp(targetPos + baseCameraData.CameraOffset,(float)delta * baseCameraData.PositionLerpSpeed);
-		CameraTargetRoot.Position = curPos;
+		_cameraHolder.Position = curPos;
 	}
 }

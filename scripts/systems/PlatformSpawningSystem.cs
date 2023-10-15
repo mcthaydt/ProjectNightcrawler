@@ -1,5 +1,6 @@
 using Godot;
-using System;
+
+namespace Nightcrawler.scripts.systems;
 
 public partial class PlatformSpawningSystem : Node
 {

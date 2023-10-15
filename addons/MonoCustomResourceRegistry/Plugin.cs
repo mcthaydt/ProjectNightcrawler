@@ -19,17 +19,17 @@ namespace MonoCustomResourceRegistry
         // and we can't be sure how long that is. I guess we have to leave refreshing to the user for now.
         // There isn't any automation we can do to fix that.
         // private Button MonoBuildButton => GetNode<Button>("/root/EditorNode/@@580/@@581/@@589/@@590/Button");
-        private readonly List<string> customTypes = new List<string>();
-        private Button? refreshButton;
+        private readonly List<string> _customTypes = new List<string>();
+        private Button? _refreshButton;
 
         public override void _EnterTree()
         {
-            refreshButton = new Button();
-            refreshButton.Text = "CCR";
+            _refreshButton = new Button();
+            _refreshButton.Text = "CCR";
 
-            AddControlToContainer(CustomControlContainer.Toolbar, refreshButton);
-            refreshButton.Icon = GetEditorInterface().GetBaseControl().GetThemeIcon("Reload", "EditorIcons");
-            refreshButton.Pressed += OnRefreshPressed;
+            AddControlToContainer(CustomControlContainer.Toolbar, _refreshButton);
+            _refreshButton.Icon = GetEditorInterface().GetBaseControl().GetThemeIcon("Reload", "EditorIcons");
+            _refreshButton.Pressed += OnRefreshPressed;
 
             Settings.Init();
             RefreshCustomClasses();
@@ -39,8 +39,8 @@ namespace MonoCustomResourceRegistry
         public override void _ExitTree()
         {
             UnregisterCustomClasses();
-            RemoveControlFromContainer(CustomControlContainer.Toolbar, refreshButton);
-            refreshButton?.QueueFree();
+            RemoveControlFromContainer(CustomControlContainer.Toolbar, _refreshButton);
+            _refreshButton?.QueueFree();
         }
 
         public void RefreshCustomClasses()
@@ -52,7 +52,7 @@ namespace MonoCustomResourceRegistry
 
         private void RegisterCustomClasses()
         {
-            customTypes.Clear();
+            _customTypes.Clear();
 
             foreach (Type type in GetCustomRegisteredTypes())
                 if (type.IsSubclassOf(typeof(Resource)))
@@ -71,14 +71,14 @@ namespace MonoCustomResourceRegistry
             if (script == null)
                 return;
             string baseType = defaultBaseTypeName;
-            if (attribute is not null && attribute.baseType != "")
-                baseType = attribute.baseType;
+            if (attribute is not null && attribute.BaseType != "")
+                baseType = attribute.BaseType;
             ImageTexture? icon = null;
-            if (attribute is not null && attribute.iconPath != "")
+            if (attribute is not null && attribute.IconPath != "")
             {
-                if (FileAccess.FileExists(attribute.iconPath))
+                if (FileAccess.FileExists(attribute.IconPath))
                 {
-                    Texture2D rawIcon = ResourceLoader.Load<Texture2D>(attribute.iconPath);
+                    Texture2D rawIcon = ResourceLoader.Load<Texture2D>(attribute.IconPath);
                     if (rawIcon != null)
                     {
                         Image image = rawIcon.GetImage();
@@ -93,7 +93,7 @@ namespace MonoCustomResourceRegistry
                     GD.PushError($"The icon path of \"{path}\" for the registered type \"{type.FullName}\" does not exist.");
             }
             AddCustomType($"{Settings.ClassPrefix}{type.Name}", baseType, script, icon);
-            customTypes.Add($"{Settings.ClassPrefix}{type.Name}");
+            _customTypes.Add($"{Settings.ClassPrefix}{type.Name}");
             GD.Print($"Registered custom type: {type.Name} -> {path}");
         }
 
@@ -190,13 +190,13 @@ namespace MonoCustomResourceRegistry
 
         private void UnregisterCustomClasses()
         {
-            foreach (var script in customTypes)
+            foreach (var script in _customTypes)
             {
                 RemoveCustomType(script);
                 GD.Print($"Unregister custom resource: {script}");
             }
 
-            customTypes.Clear();
+            _customTypes.Clear();
         }
 
         private void OnRefreshPressed()

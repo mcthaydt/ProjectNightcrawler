@@ -4,7 +4,46 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fdd73071-43e9-49bd-ab22-ad464aec7029" name="Changes" comment="" />
+    <list default="true" id="fdd73071-43e9-49bd-ab22-ad464aec7029" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/screens/gameplay_screen.tscn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Nightcrawler/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Nightcrawler/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nightcrawler.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Nightcrawler.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nightcrawler.csproj.old" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/addons/MonoCustomResourceRegistry/Plugin.cs" beforeDir="false" afterPath="$PROJECT_DIR$/addons/MonoCustomResourceRegistry/Plugin.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addons/MonoCustomResourceRegistry/RegisteredTypeAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/addons/MonoCustomResourceRegistry/RegisteredTypeAttribute.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addons/godot-jolt/LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/addons/godot-jolt/THIRDPARTY.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/addons/godot-jolt/godot-jolt.gdextension" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/addons/godot-jolt/linux/godot-jolt_linux-x64.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/addons/godot-jolt/linux/godot-jolt_linux-x64_editor.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/addons/godot-jolt/linux/godot-jolt_linux-x86.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/addons/godot-jolt/linux/godot-jolt_linux-x86_editor.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/addons/godot-jolt/macos/godot-jolt_macos.framework/Resources/Info.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/addons/godot-jolt/macos/godot-jolt_macos.framework/_CodeSignature/CodeResources" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/addons/godot-jolt/macos/godot-jolt_macos.framework/godot-jolt_macos" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/addons/godot-jolt/macos/godot-jolt_macos_editor.framework/Resources/Info.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/addons/godot-jolt/macos/godot-jolt_macos_editor.framework/_CodeSignature/CodeResources" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/addons/godot-jolt/macos/godot-jolt_macos_editor.framework/godot-jolt_macos_editor" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/addons/godot-jolt/windows/godot-jolt_windows-x64.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/addons/godot-jolt/windows/godot-jolt_windows-x64_editor.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/addons/godot-jolt/windows/godot-jolt_windows-x86.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/addons/godot-jolt/windows/godot-jolt_windows-x86_editor.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nightcrawler.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/nightcrawler.tscn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/objects/Platform.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/objects/Platform.tscn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/components/BlobShadowComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/components/BlobShadowComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/components/FollowParentComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/components/FollowParentComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/components/camera/AdaptiveCameraFOVComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/components/camera/AdaptiveCameraFOVComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/components/camera/CameraFollowComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/components/camera/CameraFollowComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/components/camera/CameraTiltComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/components/camera/CameraTiltComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/components/player/PlayerMovementComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/components/player/PlayerMovementComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/components/player/PlayerPhysicsAdaptToFrameRateComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/components/player/PlayerPhysicsAdaptToFrameRateComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/components/player/PlayerPhysicsComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/components/player/PlayerPhysicsComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/data/base_resources/BaseCameraData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/data/base_resources/BaseCameraData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/data/base_resources/BaseCharacterData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/data/base_resources/BaseCharacterData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/states/PlayerGroundedState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/states/PlayerGroundedState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/states/PlayerInAirState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/states/PlayerInAirState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/systems/PlatformSpawningSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/systems/PlatformSpawningSystem.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,8 +52,27 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "mcthaydt"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="6bd0a626-89c2-4b52-897c-25606f01e41a" />
+        <option name="url" value="https://github.com/mcthaydt/ProjectNightcrawler.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///Users/mcthaydt/Desktop/717 Holdings Company/CrispyOwl717/Games/Nightcrawler/scripts/data/base_resources/BaseCharacterData.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/mcthaydt/Desktop/717 Holdings Company/CrispyOwl717/Games/Nightcrawler/scripts/components/camera/AdaptiveCameraFOVComponent.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/mcthaydt/Desktop/717 Holdings Company/CrispyOwl717/Games/Nightcrawler/scripts/components/player/PlayerPhysicsAdaptToFrameRateComponent.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/mcthaydt/Desktop/717 Holdings Company/CrispyOwl717/Games/Nightcrawler/scripts/states/PlayerGroundedState.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/mcthaydt/Desktop/717 Holdings Company/CrispyOwl717/Games/Nightcrawler/scripts/states/PlayerInAirState.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/mcthaydt/Desktop/717 Holdings Company/CrispyOwl717/Games/Nightcrawler/scripts/util/State.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/mcthaydt/Desktop/717 Holdings Company/CrispyOwl717/Games/Nightcrawler/scripts/util/StateMachine.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -52,7 +110,7 @@
 }</component>
   <component name="RunManager" selected=".NET Executable.Player">
     <configuration name="Editor" type="RunExe" factoryName=".NET Executable">
-      <option name="EXE_PATH" value="/Applications/Godot 4.3 V4.app/Contents/MacOS/Godot" />
+      <option name="EXE_PATH" value="/Applications/Godot 4.2 Beta 1.app/Contents/MacOS/Godot" />
       <option name="PROGRAM_PARAMETERS" value="--path &quot;$PROJECT_DIR$&quot; --editor" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -65,7 +123,7 @@
       </method>
     </configuration>
     <configuration name="Player" type="RunExe" factoryName=".NET Executable">
-      <option name="EXE_PATH" value="/Applications/Godot 4.3 V4.app/Contents/MacOS/Godot" />
+      <option name="EXE_PATH" value="/Applications/Godot 4.2 Beta 1.app/Contents/MacOS/Godot" />
       <option name="PROGRAM_PARAMETERS" value="--path &quot;$PROJECT_DIR$&quot;" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -115,6 +173,12 @@
       <workItem from="1697295576885" duration="1720000" />
       <workItem from="1697297550180" duration="1902000" />
       <workItem from="1697299471252" duration="1712000" />
+      <workItem from="1697301220188" duration="352000" />
+      <workItem from="1697332930265" duration="205000" />
+      <workItem from="1697389928932" duration="795000" />
+      <workItem from="1697390730443" duration="20000" />
+      <workItem from="1697390754728" duration="31000" />
+      <workItem from="1697390791018" duration="3068000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -228,7 +292,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697301032242</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Removed Rotation">
+      <option name="closed" value="true" />
+      <created>1697301359336</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1697301359336</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -263,6 +335,7 @@
     <MESSAGE value="Converted GDScript Code to C#" />
     <MESSAGE value="Fixed Jitter (Garbaj)" />
     <MESSAGE value="Project Cleanup" />
-    <option name="LAST_COMMIT_MESSAGE" value="Project Cleanup" />
+    <MESSAGE value="Removed Rotation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed Rotation" />
   </component>
 </project>
